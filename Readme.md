@@ -13,6 +13,9 @@ Server Routes
 | GET    |                   /vans/get-all-vans                    |      get all vans |
 | GET    |                /vans/get-oneVan/:van_id                 | ger one van by id |
 | POST   |                    /vans/create-van                     |        create van |
+| POST   |                    /vans//get-oneVan/:van_id/edit       |        edit van   |
+| POST   |                    /vans/get-oneVan/delete              |        delete van |
+
 |        |                                                         |                   |
 | GET    |                   /user/get-all-users                   |     get all users |
 | GET    |                /user/getOneUser/:user_id                | ger one van by id |
