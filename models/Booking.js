@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
-const reservationSchema = new Schema(
+const bookingSchema = new Schema(
     {
         dateStart: {
             type: Date,
-            unique: true,
             required: true,
         },
         dateEnd: {
@@ -16,11 +15,8 @@ const reservationSchema = new Schema(
             type: Number,
             required: true,
         },
-         imageUrl: {
-            type: String,
-            required: [true, "La imagen es obligatoria"],
-        },
-        vans: {
+
+        van: {
             type: Schema.Types.ObjectId,
             ref: "Van",
         },
@@ -29,4 +25,4 @@ const reservationSchema = new Schema(
         timestamps: true,
     }
 );
-module.exports = model("Reservation", reservationSchema);
+module.exports = model("Booking", bookingSchema);

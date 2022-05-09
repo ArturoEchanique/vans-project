@@ -16,8 +16,9 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
-         imageUrl: {
+        imageUrl: {
             type: String,
+            default: "https://i.stack.imgur.com/34AD2.jpg",
         },
         reservations: [
             {
@@ -37,7 +38,8 @@ const userSchema = new Schema(
         ],
         role: {
             type: String,
-            enum:["ADMIN","USER"]
+            enum: ["ADMIN", "USER"],
+            default: 'USER'
         },
     },
     {

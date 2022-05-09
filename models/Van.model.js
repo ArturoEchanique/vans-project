@@ -1,30 +1,33 @@
 const { Schema, model } = require("mongoose");
 
-const coasterSchema = new Schema(
+const vanSchema = new Schema(
     {
         name: {
             type: String,
-            required: [true, "El nombre es obligatorio"],
+            required: [true, "Please provide a name"],
         },
         description: {
             type: String,
-            required: [true, "La descripción es obligatoria"],
-            minlength: [20, "La descripción debe tener min. 20 caracteres"],
+            required: [true, "Please Provide a description"],
+            minlength: [20, "the description must be 20 characters long"],
         },
-
         imageUrl: {
             type: String,
         },
-        owner: {
-            type: Schema.Types.ObjectId,
-            ref: "Renter",
+        location: {
+            type: {
+                type: String
+            },
+            coordinates: [Number],
+            // required: [true, "Please Provide a location"],
         },
     },
     {
         timestamps: true,
     }
 );
+vanSchema.index({ location: '2dsphere' })
 
-const Coaster = model("Coaster", coasterSchema);
+const Van = model("Van", vanSchema);
 
-module.exports = Coaster;
+module.exports = Van;
