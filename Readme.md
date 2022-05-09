@@ -1,21 +1,25 @@
 # vans proyect
 
-#End Points
+End Points
 
-#Server Routes
+Server Routes
 
-| METHOD |            URL            |       DESCRIPTION |
-| ------ | :-----------------------: | ----------------: |
-| POST   |       /auth/signup        |          register |
-| POST   |        /auth/login        |             login |
-| GET    |       /auth/verify        |            verify |
-|        |                           |                   |
-| GET    |     /vans/getAllVans      |      get all vans |
-| GET    |  /vans/getOneVan/:van_id  | ger one van by id |
-| POST   |       /vans/saveVan       |        create van |
-|        |                           |                   |
-| GET    |     /user/getAllUsers     |     get all users |
-| GET    | /user/getOneUser/:user_id | ger one van by id |
+| METHOD |                           URL                           |       DESCRIPTION |
+| ------ | :-----------------------------------------------------: | ----------------: |
+| POST   |                      /auth/signup                       |          register |
+| POST   |                       /auth/login                       |             login |
+| GET    |                      /auth/verify                       |            verify |
+|        |                                                         |                   |
+| GET    |                   /vans/get-all-vans                    |      get all vans |
+| GET    |                /vans/get-oneVan/:van_id                 | ger one van by id |
+| POST   |                    /vans/create-van                     |        create van |
+|        |                                                         |                   |
+| GET    |                   /user/get-all-users                   |     get all users |
+| GET    |                /user/getOneUser/:user_id                | ger one van by id |
+|        |                                                         |                   |
+| GET    |            /reseravations/get-reseravations             |      get all vans |
+| GET    | /reseravations/get-one-reseravations /:reseravations_id | ger one van by id |
+| POST   |           /reseravations/create-reseravations           |        create van |
 
 #Client Routes
 

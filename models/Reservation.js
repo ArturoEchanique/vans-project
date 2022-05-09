@@ -16,7 +16,10 @@ const reservationSchema = new Schema(
             type: Number,
             required: true,
         },
-
+         imageUrl: {
+            type: String,
+            required: [true, "La imagen es obligatoria"],
+        },
         vans: {
             type: Schema.Types.ObjectId,
             ref: "Van",
@@ -26,4 +29,4 @@ const reservationSchema = new Schema(
         timestamps: true,
     }
 );
-module.exports = model("Reservation", reservation);
+module.exports = model("Reservation", reservationSchema);

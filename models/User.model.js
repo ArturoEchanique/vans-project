@@ -16,10 +16,30 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
-        reservations: [{
-            type: Schema.Types.ObjectId,
-            ref: "Reservation",
-        }],
+         imageUrl: {
+            type: String,
+            required: [true, "La imagen es obligatoria"],
+        },
+        reservations: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Reservation",
+            },
+        ],
+        // banckthing: {
+        //     type: String,
+        //     required: true,
+        // },
+        vans: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Van",
+            },
+        ],
+        role: {
+            type: String,
+            enum:["ADMIN","USER"]
+        },
     },
     {
         timestamps: true,
