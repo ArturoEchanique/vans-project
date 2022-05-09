@@ -18,7 +18,7 @@ const userSchema = new Schema(
         },
         imageUrl: {
             type: String,
-            required: [true, "Please provide an image"],
+            default: "https://i.stack.imgur.com/34AD2.jpg",
         },
         reservations: [
             {

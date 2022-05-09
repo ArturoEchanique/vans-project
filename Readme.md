@@ -15,14 +15,24 @@ Server Routes
 | POST   |                    /vans/create-van                     |        create van |
 | POST   |                    /vans//get-oneVan/:van_id/edit       |        edit van   |
 | POST   |                    /vans/get-oneVan/delete              |        delete van |
-
-|        |                                                         |                   |
-| GET    |                   /user/get-all-users                   |     get all users |
-| GET    |                /user/getOneUser/:user_id                | ger one van by id |
-|        |                                                         |                   |
-| GET    |            /reseravations/get-reseravations             |      get all vans |
-| GET    | /reseravations/get-one-reseravations /:reseravations_id | ger one van by id |
-| POST   |           /reseravations/create-reseravations           |        create van |
+| METHOD |             URL              |       DESCRIPTION |
+| ------ | :--------------------------: | ----------------: |
+| POST   |         /auth/signup         |          register |
+| POST   |         /auth/login          |             login |
+| GET    |         /auth/verify         |            verify |
+|        |                              |                   |
+| GET    |      /vans/get-all-vans      |      get all vans |
+| GET    |   /vans/get-oneVan/:van_id   | ger one van by id |
+| POST   |       /vans/create-van       |        create van |
+|        |                              |                   |
+| GET    |     /user/get-all-users      |     get all users |
+| GET    |  /user/getOneUser/:user_id   | ger one van by id |
+|        |                              |                   |
+| POST   |       /bookings/create       |   create bookings |
+| GET    |      /bookings/get-all       |  get all bookings |
+| GET    |    /bookings/:booking_id     |  get one bookings |
+| POST   | /bookings/edit/:bookings_id  |     edit bookings |
+| POST   | /bookings/delete/:booking_id |   delete bookings |
 
 #Client Routes
 
