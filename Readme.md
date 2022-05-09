@@ -17,8 +17,8 @@ Server Routes
 | GET    |                   /user/get-all-users                   |     get all users |
 | GET    |                /user/getOneUser/:user_id                | ger one van by id |
 |        |                                                         |                   |
-| GET    |            /reseravations/get-reseravations             |      get all vans |
-| GET    | /reseravations/get-one-reseravations /:reseravations_id | ger one van by id |
+| GET    |            /reseravations/get-reseravations             |      get all vans 
+| GET    | /reseravations/get-one-reseravation/:reseravations_id | ger one van by id |
 | POST   |           /reseravations/create-reseravations           |        create van |
 
 #Client Routes

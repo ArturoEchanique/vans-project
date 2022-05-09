@@ -16,10 +16,7 @@ const coasterSchema = new Schema(
             type: String,
             required: [true, "La imagen es obligatoria"],
         },
-        owner: {
-            type: Schema.Types.ObjectId,
-            ref: "Renter",
-        },
+     
     },
     {
         timestamps: true,
