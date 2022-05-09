@@ -13,7 +13,6 @@ const vanSchema = new Schema(
         },
         imageUrl: {
             type: String,
-            required: [true, "Please Provide an image"],
         },
         location: {
             type: {
