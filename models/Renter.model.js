@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
-const userSchema = new Schema(
+const renterSchema = new Schema(
     {
         email: {
             type: String,
@@ -16,14 +16,21 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
-        reservations: [{
-            type: Schema.Types.ObjectId,
-            ref: "Reservation",
-        }],
+        // banckthing: {
+        //     type: String,
+        //     required: true,
+        // },
+        vans: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Van",
+            },
+        ],
     },
     {
         timestamps: true,
     }
 );
+    ;
 
-module.exports = model("User", userSchema);
+module.exports = model("Renter", renterSchema);
