@@ -16,7 +16,7 @@ router.get("/get-all", (req, res) => {
         .catch((err) => res.status(500).json(err));
 });
 
-router.get("/get-one/:booking_id", (req, res) => {
+router.get("/:booking_id", (req, res) => {
     const { booking_id } = req.params;
 
     Booking.findById(booking_id)
