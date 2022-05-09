@@ -5,7 +5,6 @@ const reservationSchema = new Schema(
     {
         dateStart: {
             type: Date,
-            unique: true,
             required: true,
         },
         dateEnd: {
@@ -16,11 +15,11 @@ const reservationSchema = new Schema(
             type: Number,
             required: true,
         },
-         imageUrl: {
+        imageUrl: {
             type: String,
             required: [true, "La imagen es obligatoria"],
         },
-        vans: {
+        van: {
             type: Schema.Types.ObjectId,
             ref: "Van",
         },

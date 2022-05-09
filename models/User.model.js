@@ -16,9 +16,9 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
-         imageUrl: {
+        imageUrl: {
             type: String,
-            required: [true, "La imagen es obligatoria"],
+            required: [true, "Please provide an image"],
         },
         reservations: [
             {
@@ -38,7 +38,8 @@ const userSchema = new Schema(
         ],
         role: {
             type: String,
-            enum:["ADMIN","USER"]
+            enum: ["ADMIN", "USER"],
+            default: 'USER'
         },
     },
     {
