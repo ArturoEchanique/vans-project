@@ -14,7 +14,6 @@ const coasterSchema = new Schema(
 
         imageUrl: {
             type: String,
-            required: [true, "La imagen es obligatoria"],
         },
         owner: {
             type: Schema.Types.ObjectId,

@@ -18,7 +18,6 @@ const userSchema = new Schema(
         },
          imageUrl: {
             type: String,
-            required: [true, "La imagen es obligatoria"],
         },
         reservations: [
             {
