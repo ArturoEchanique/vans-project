@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const Booking = require("../models/Booking");
+const Booking = require("../models/Booking.model");
 
 router.post("/create", (req, res) => {
     const { dateStart, dateEnd, price, van } = req.body;
