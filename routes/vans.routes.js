@@ -29,7 +29,7 @@ router.get('/get-all-vans', (req, res) => {
 
 })
 
-router.get('/get-oneVan/:van_id', (req, res) => {
+router.get('/get-onevan/:van_id', (req, res) => {
     const { van_id } = req.params
 
     Van
@@ -39,7 +39,7 @@ router.get('/get-oneVan/:van_id', (req, res) => {
 
 })
 
-router.post('/get-oneVan/:van_id/edit', (req, res) => {
+router.post('/get-onevan/:van_id/edit', (req, res) => {
     const { van_id } = req.params
     const { name, description, imageUrl, longitude, latitude } = req.body
     const newVan = new Van({
@@ -59,7 +59,7 @@ router.post('/get-oneVan/:van_id/edit', (req, res) => {
 
 })
 
-router.post('/get-oneVan/:van_id/delete', (req, res) => {
+router.post('/get-onevan/:van_id/delete', (req, res) => {
     const { van_id } = req.params
 
     Van

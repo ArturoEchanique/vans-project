@@ -12,13 +12,13 @@ Server Routes
 | GET    |         /auth/verify         |            verify |
 |        |                              |                   |
 | GET    |  /vans/get-all-vans          |      get all vans |
-| GET    |   /vans/get-oneVan/:van_id   | ger one van by id |
+| GET    |   /vans/get-onevan/:van_id   | ger one van by id |
 | POST   |    /vans/create-van          |        create van |
-| POST   |/vans//get-oneVan/:van_id/edit|        edit van   |
-| POST   |  /vans/get-oneVan/delete     |        delete van |
+| POST   |/vans//get-onevan/:van_id/edit|        edit van   |
+| POST   |  /vans/get-onevan/delete     |        delete van |
 |        |                              |                   |
 | GET    |     /user/get-all-users      |     get all users |
-| GET    |  /user/getOneUser/:user_id   | ger one van by id |
+| GET    |  /user/getoneuser/:user_id   | ger one van by id |
 |        |                              |                   |
 | POST   |       /bookings/create       |   create bookings |
 | GET    |      /bookings/get-all       |  get all bookings |
@@ -30,7 +30,7 @@ Server Routes
 
 |      URL       |                  DESCRIPTION |
 | :------------: | ---------------------------: |
-|  /signup-user  |                  signup-user |
+|  /signup       |                  signup-user |
 |     /login     |                        login |
 |      /\*       |                        error |
 |     /home      |                     searcher |
