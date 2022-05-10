@@ -2,16 +2,17 @@ const router = require("express").Router()
 const Van = require("./../models/Van.model")
 
 router.post('/create-van', (req, res) => {
-    const { name, description, imageUrl, longitude, latitude } = req.body
-    const newVan = new Van({
-        name: name,
-        description: description,
-        imageUrl: imageUrl,
+    const { name, description, imageUrl, dayPrice, longitude, latitude } = req.body
+    const newVan = {
+        name,
+        description,
+        dayPrice,
+        imageUrl,
         location: {
             type: 'Point',
-            coordinates: [longitude, latitude]
+            coordinates: [longitude, 3]
         }
-    });
+    }
 
     Van
         .create(newVan)
@@ -20,7 +21,7 @@ router.post('/create-van', (req, res) => {
 
 })
 
-router.get('/get-all-vans', (req, res) => {
+router.get('/get-all', (req, res) => {
 
     Van
         .find()
@@ -29,7 +30,7 @@ router.get('/get-all-vans', (req, res) => {
 
 })
 
-router.get('/get-oneVan/:van_id', (req, res) => {
+router.get('/:van_id', (req, res) => {
     const { van_id } = req.params
 
     Van
@@ -39,22 +40,33 @@ router.get('/get-oneVan/:van_id', (req, res) => {
 
 })
 
-router.post('/get-oneVan/:van_id/edit', (req, res) => {
+router.post('/:van_id/edit', (req, res) => {
     const { van_id } = req.params
-
+    const { name, description, imageUrl, dayPrice, longitude, latitude } = req.body
+    const newVan = {
+        name,
+        description,
+        dayPrice,
+        imageUrl,
+        location: {
+            type: 'Point',
+            coordinates: [longitude, 3]
+        }
+    }
+console.log("editing van")
     Van
-        .findByIdAndUpdate(van_id)
+        .findByIdAndUpdate(van_id, newVan)
         .then((response => res.json(response)))
         .catch(err => res.status(500).json(err))
 
 })
 
-router.post('/get-oneVan/:van_id/delete', (req, res) => {
+router.post('/:van_id/delete', (req, res) => {
     const { van_id } = req.params
 
     Van
-        .findById(van_id)
-        .then((response => res.json(response)))
+        .findByIdAndRemove(van_id)
+        .then((response => res.json({"message": "van deleted"})))
         .catch(err => res.status(500).json(err))
 
 })
