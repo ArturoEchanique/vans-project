@@ -21,14 +21,25 @@ router.post('/create', (req, res) => {
 
 })
 
-router.get('/get-all', (req, res) => {
-
+router.get('/', (req, res) => {
+    console.log("req.query is", req.query)
+    const {name} = req.query
+    console.log(req.query)
     Van
-        .find()
+    // { name: "nameQuery" }
+        .find(req.query)
         .then((response => res.json(response)))
         .catch(err => res.status(500).json(err))
-
 })
+
+// router.get('/query', (req, res) => {
+
+//     console.log(req.query)
+//     Van
+//         .find(req.query)
+//         .then((response => res.json(response)))
+//         .catch(err => res.status(500).json(err))
+// })
 
 router.get('/:van_id', (req, res) => {
     const { van_id } = req.params
@@ -53,7 +64,7 @@ router.post('/:van_id/edit', (req, res) => {
             coordinates: [longitude, 3]
         }
     }
-console.log("editing van")
+    console.log("editing van")
     Van
         .findByIdAndUpdate(van_id, newVan)
         .then((response => res.json(response)))
@@ -66,7 +77,7 @@ router.post('/:van_id/delete', (req, res) => {
 
     Van
         .findByIdAndRemove(van_id)
-        .then((response => res.json({"message": "van deleted"})))
+        .then((() => res.json({ message: "van deleted" })))
         .catch(err => res.status(500).json(err))
 
 })
