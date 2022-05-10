@@ -15,7 +15,6 @@ const bookingSchema = new Schema(
             type: Number,
             required: true,
         },
-
         van: {
             type: Schema.Types.ObjectId,
             ref: "Van",

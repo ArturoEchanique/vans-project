@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const Van = require("./../models/Van.model")
 
-router.post('/create-van', (req, res) => {
+router.post('/create', (req, res) => {
     const { name, description, imageUrl, dayPrice, longitude, latitude } = req.body
     const newVan = {
         name,
