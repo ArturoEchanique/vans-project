@@ -10,7 +10,7 @@ router.post('/create', (req, res) => {
         imageUrl,
         location: {
             type: 'Point',
-            coordinates: [longitude, 3]
+            coordinates: [longitude, latitude]
         }
     }
 
@@ -61,7 +61,7 @@ router.post('/:van_id/edit', (req, res) => {
         imageUrl,
         location: {
             type: 'Point',
-            coordinates: [longitude, 3]
+            coordinates: [longitude, latitude]
         }
     }
     console.log("editing van")
@@ -81,9 +81,5 @@ router.post('/:van_id/delete', (req, res) => {
         .catch(err => res.status(500).json(err))
 
 })
-
-
-
-
 
 module.exports = router;
