@@ -9,10 +9,14 @@ const vanSchema = new Schema(
         description: {
             type: String,
             required: [true, "Please Provide a description"],
-            minlength: [20, "the description must be 20 characters long"],
+            minlength: [4, "the description must be 4 characters long"],
         },
         imageUrl: {
             type: String,
+        },
+        dayPrice: {
+            type: Number,
+            required: true,
         },
         location: {
             type: {
