@@ -1,5 +1,3 @@
-const Van = require("./../models/Van.model")
-
 function randomDateRange() {
     const randomDateOffset = Math.floor(Math.random() * 20)
     const randomDateOffset2 = Math.floor(Math.random() * 10)

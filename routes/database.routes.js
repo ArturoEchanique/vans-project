@@ -5,7 +5,6 @@ const User = require("./../models/User.model")
 
 const { generateBookings, generateUsers, generateVans } = require("../utils/feedDatabase");
 
-
 router.post("/delete-and-generate", (req, res) => {
     console.log("empezamos bien")
     User
