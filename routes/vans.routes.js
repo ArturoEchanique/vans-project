@@ -26,11 +26,12 @@ router.post('/create', isAuthenticated, (req, res) => {
 
 router.get('/', (req, res) => {
     console.log("req.query is", req.query)
-    const { name } = req.query
+    const { name, solarPower } = req.query
     console.log(req.query)
     Van
         // { name: "nameQuery" }
-        .find(req.query)
+        // .find({ solarPower: "true", name: { $regex: "1", $options: "i" } })
+        .find({ name: { $regex: `${name}`, $options: "i" }, solarPower: solarPower })
         .then((response => res.json(response)))
         .catch(err => res.status(500).json(err))
 })
