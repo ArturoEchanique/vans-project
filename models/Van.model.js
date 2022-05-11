@@ -18,6 +18,9 @@ const vanSchema = new Schema(
             type: Number,
             required: true,
         },
+        solarPower: {
+            type: Boolean,
+        },
         location: {
             type: {
                 type: String

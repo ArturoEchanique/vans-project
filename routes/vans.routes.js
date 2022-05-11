@@ -3,11 +3,13 @@ const Van = require("./../models/Van.model")
 
 router.post('/create', (req, res) => {
     const { name, description, imageUrl, dayPrice, longitude, latitude } = req.body
+    const randomBool = random_boolean = Math.random() < 0.5
     const newVan = {
         name,
         description,
         dayPrice,
         imageUrl,
+        solarPower: randomBool,
         location: {
             type: 'Point',
             coordinates: [longitude, latitude]
