@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const User = require("../models/User.model")
+const { isAuthenticated } = require('./../middlewares/jwt.middleware')
 
 
 router.get("/get-all", (req, res) => {
@@ -10,7 +11,7 @@ router.get("/get-all", (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.post("/edit/:user_id", (req, res) => {
+router.post("/edit/:user_id", isAuthenticated, (req, res) => {
 
     const { user_id } = req.params;
     const { email, password, username, imageUrl } = req.body
@@ -21,7 +22,7 @@ router.post("/edit/:user_id", (req, res) => {
         .catch((err) => res.status(500).json(err));
 });
 
-router.post("/delete/:user_id", (req, res) => {
+router.post("/delete/:user_id", isAuthenticated, (req, res) => {
 
     const { user_id } = req.params;
     User
@@ -30,7 +31,7 @@ router.post("/delete/:user_id", (req, res) => {
         .catch((err) => res.status(500).json(err));
 });
 
-router.get("/:user_id", (req, res) => {
+router.get("/:user_id", isAuthenticated, (req, res) => {
 
     const { user_id } = req.params
 

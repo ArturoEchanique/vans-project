@@ -1,7 +1,8 @@
 const router = require("express").Router()
 const Van = require("./../models/Van.model")
+const { isAuthenticated } = require('./../middlewares/jwt.middleware')
 
-router.post('/create', (req, res) => {
+router.post('/create', isAuthenticated, (req, res) => {
     const { name, description, imageUrl, dayPrice, longitude, latitude } = req.body
     const randomBool = random_boolean = Math.random() < 0.5
     const newVan = {
@@ -25,10 +26,10 @@ router.post('/create', (req, res) => {
 
 router.get('/', (req, res) => {
     console.log("req.query is", req.query)
-    const {name} = req.query
+    const { name } = req.query
     console.log(req.query)
     Van
-    // { name: "nameQuery" }
+        // { name: "nameQuery" }
         .find(req.query)
         .then((response => res.json(response)))
         .catch(err => res.status(500).json(err))
@@ -53,7 +54,7 @@ router.get('/:van_id', (req, res) => {
 
 })
 
-router.post('/:van_id/edit', (req, res) => {
+router.post('/:van_id/edit', isAuthenticated, (req, res) => {
     const { van_id } = req.params
     const { name, description, imageUrl, dayPrice, longitude, latitude } = req.body
     const newVan = {
@@ -66,7 +67,7 @@ router.post('/:van_id/edit', (req, res) => {
             coordinates: [longitude, latitude]
         }
     }
-    console.log("editing van")
+
     Van
         .findByIdAndUpdate(van_id, newVan)
         .then((response => res.json(response)))
