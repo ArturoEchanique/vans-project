@@ -26,30 +26,51 @@ router.post('/create', isAuthenticated, (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    const {name, solarPower, startDate, endDate} = req.query
+    const { name, solarPower } = req.query
+    let { startDate, endDate } = req.query
+    startDate = Number(startDate)
+    endDate = Number(endDate)
+    let noBookedVans = []
     let filteredVans = []
+    let filteredVansIds = []
+
     Van
-        .find({name: { $regex: `${name}`, $options: "i" }, solarPower: solarPower})
+        .find({ name: { $regex: `${name}`, $options: "i" }, solarPower: solarPower })
         .then((vans => {
+            noBookedVans = vans
+            console.log("initial vans are", noBookedVans.length)
             filteredVansIds = vans.map(van => van._id)
-            return Booking.find({ van: { $in : filteredVansIds }})
+            // noBookedVans = filteredVansIds
+            return Booking.find({ van: { $in: filteredVansIds } })
         }))
-        .then(bookings =>{
-            bookings.forEach(booking =>{
-                console.log(new Date(booking.dateStart.getTime()),
-                 new Date(booking.dateEnd.getTime()), 
-                    new Date(startDate),  
-                    new Date(endDate))
-                if (Math.max(booking.dateStart.getTime(), booking.dateEnd.getTime()) <= Math.min(startDate, endDate)) console.log("they overlap!")
-                else console.log("they dont overlap!")
-                
+        .then(bookings => {
+            bookings.forEach(booking => {
+                // console.log("bs:", new Date(booking.dateStart.getTime()),
+                //     "be", new Date(booking.dateEnd.getTime()),
+                //     "qs", new Date(startDate),
+                //     "qe", new Date(endDate))
+                // console.log("bs:", booking.dateStart.getTime(),
+                //     "be", booking.dateEnd.getTime(),
+                //     "qs", startDate,
+                //     "qe", endDate)
+                if ((booking.dateStart.getTime() <= endDate) && (startDate <= booking.dateEnd.getTime())) {
+                    console.log("yes they overlap!")
+
+                    noBookedVans = noBookedVans.filter(van => van._id.toString() !== booking.van.toString())
+                    
+                }
+                else {
+                    console.log("NO dont overlap!")
+                }
+                console.log("finally vans are", noBookedVans.length)
             })
-            res.json(bookings)
+           
+            res.json(noBookedVans)
         })
         // .then(response => {
         //     res.json(response)
         // })
-    
+
         .catch(err => res.status(500).json(err))
 })
 
