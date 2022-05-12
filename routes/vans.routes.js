@@ -1,4 +1,5 @@
 const router = require("express").Router()
+const Booking = require("../models/Booking.model");
 const Van = require("./../models/Van.model")
 const { isAuthenticated } = require('./../middlewares/jwt.middleware')
 
@@ -25,25 +26,32 @@ router.post('/create', isAuthenticated, (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    console.log("req.query is", req.query)
-    const { name, solarPower } = req.query
-    console.log(req.query)
+    const {name, solarPower, startDate, endDate} = req.query
+    let filteredVans = []
     Van
-        // { name: "nameQuery" }
-        // .find({ solarPower: "true", name: { $regex: "1", $options: "i" } })
-        .find({ name: { $regex: `${name}`, $options: "i" }, solarPower: solarPower })
-        .then((response => res.json(response)))
+        .find({name: { $regex: `${name}`, $options: "i" }, solarPower: solarPower})
+        .then((vans => {
+            filteredVansIds = vans.map(van => van._id)
+            return Booking.find({ van: { $in : filteredVansIds }})
+        }))
+        .then(bookings =>{
+            bookings.forEach(booking =>{
+                console.log(new Date(booking.dateStart.getTime()),
+                 new Date(booking.dateEnd.getTime()), 
+                    new Date(startDate),  
+                    new Date(endDate))
+                if (Math.max(booking.dateStart.getTime(), booking.dateEnd.getTime()) <= Math.min(startDate, endDate)) console.log("they overlap!")
+                else console.log("they dont overlap!")
+                
+            })
+            res.json(bookings)
+        })
+        // .then(response => {
+        //     res.json(response)
+        // })
+    
         .catch(err => res.status(500).json(err))
 })
-
-// router.get('/query', (req, res) => {
-
-//     console.log(req.query)
-//     Van
-//         .find(req.query)
-//         .then((response => res.json(response)))
-//         .catch(err => res.status(500).json(err))
-// })
 
 router.get('/:van_id', (req, res) => {
     const { van_id } = req.params

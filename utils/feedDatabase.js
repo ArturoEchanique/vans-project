@@ -54,8 +54,9 @@ const generateUsers = () => {
 
 const generateBookings = (vans) => {
     let bookings = []
-    const dateRange = randomDateRange()
+    
     for (let i = 0; i < vans.length; i++) {
+        const dateRange = randomDateRange()
         const booking =
         {
             dateStart: dateRange[0],
