@@ -5,6 +5,7 @@ router.use("/vans", require('./vans.routes'));
 router.use("/bookings", require("./bookings.routes"));
 router.use("/user", require("./user.routes"));
 router.use("/database", require("./database.routes"));
+router.use("/upload", require("./upload.routes"));
 
 
 module.exports = router;
