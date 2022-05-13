@@ -23,19 +23,17 @@ const vanSchema = new Schema(
             type: Number,
             required: true,
         },
-        vanSpecs: {
-            solarPower: {
-                type: Boolean,
-            },
-            shower: {
-                type: Boolean,
-            },
-            bathroom: {
-                type: Boolean,
-            },
-            maxPassengers: {
-                type: Number,
-            },
+        solarPower: {
+            type: Boolean,
+        },
+        shower: {
+            type: Boolean,
+        },
+        bathroom: {
+            type: Boolean,
+        },
+        maxPassengers: {
+            type: Number,
         },
         location: {
             type: {

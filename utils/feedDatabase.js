@@ -56,12 +56,11 @@ const generateVans = (usersIds, reviewsIds, count) => {
                 type: 'Point',
                 coordinates: [RanLocation[0], RanLocation[1]]
             },
-            vanSpecs: {
-                solarPower: ranBool(),
-                shower: ranBool(),
-                bathroom: ranBool(),
-                maxPassengers: ranPassengers,
-            },
+            solarPower: ranBool(),
+            shower: ranBool(),
+            bathroom: ranBool(),
+            maxPassengers: ranPassengers,
+
             reviews: reviewsIdsArr,
         }
         newVans.push(newVan)
@@ -93,8 +92,8 @@ const generateBookings = (vansIds, count) => {
         const dateRange = randomDateRange()
         const booking =
         {
-            dateStart: dateRange[0],
-            dateEnd: dateRange[1],
+            startDate: dateRange[0],
+            endDate: dateRange[1],
             price: 100,
             van: vanId
         }

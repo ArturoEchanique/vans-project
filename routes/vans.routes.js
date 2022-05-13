@@ -26,7 +26,14 @@ router.post('/create', isAuthenticated, (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    const { name, solarPower } = req.query
+    const { name } = req.query
+    let filterParams = req.query
+    delete filterParams["name"]
+    delete filterParams["startDate"]
+    delete filterParams["endDate"]
+    console.log("filterParams is", filterParams)
+
+    console.log("req.query is", req.query)
     let { startDate, endDate } = req.query
     startDate = Number(startDate)
     endDate = Number(endDate)
@@ -35,7 +42,7 @@ router.get('/', (req, res) => {
     let filteredVansIds = []
 
     Van
-        .find({ name: { $regex: `${name}`, $options: "i" }, "vanSpecs.solarPower": solarPower })
+        .find({ name: { $regex: `${name}`, $options: "i" }, ...filterParams })
         .then((vans => {
             noBookedVans = vans
             console.log("initial vans are", noBookedVans.length)

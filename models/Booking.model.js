@@ -3,11 +3,11 @@ const { Schema, model } = mongoose;
 
 const bookingSchema = new Schema(
     {
-        dateStart: {
+        startDate: {
             type: Date,
             required: true,
         },
-        dateEnd: {
+        endDate: {
             type: Date,
             required: true,
         },
