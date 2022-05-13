@@ -44,6 +44,7 @@ router.get('/', (req, res) => {
     Van
         .find({ name: { $regex: `${name}`, $options: "i" }, ...filterParams })
         .then((vans => {
+            console.log("vans are", vans)
             noBookedVans = vans
             console.log("initial vans are", noBookedVans.length)
             filteredVansIds = vans.map(van => van._id)
@@ -52,7 +53,7 @@ router.get('/', (req, res) => {
         }))
         .then(bookings => {
             bookings.forEach(booking => {
-                if ((booking.dateStart.getTime() <= endDate) && (startDate <= booking.dateEnd.getTime())) {
+                if ((booking.startDate.getTime() <= endDate) && (startDate <= booking.endDate.getTime())) {
                     console.log("yes they overlap!")
 
                     noBookedVans = noBookedVans.filter(van => van._id.toString() !== booking.van.toString())
