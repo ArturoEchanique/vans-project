@@ -20,7 +20,13 @@ const userSchema = new Schema(
             type: String,
             default: "https://i.stack.imgur.com/34AD2.jpg",
         },
-        bookings: [
+        tenantBookings: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Reservation",
+            },
+        ],
+        LessorBooking: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Reservation",
@@ -30,12 +36,6 @@ const userSchema = new Schema(
         //     type: String,
         //     required: true,
         // },
-        vans: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: "Van",
-            },
-        ],
         role: {
             type: String,
             enum: ["ADMIN", "USER"],

@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
     let filteredVansIds = []
 
     Van
-        .find({ name: { $regex: `${name}`, $options: "i" }, solarPower: solarPower })
+        .find({ name: { $regex: `${name}`, $options: "i" }, "vanSpecs.solarPower": solarPower })
         .then((vans => {
             noBookedVans = vans
             console.log("initial vans are", noBookedVans.length)
@@ -45,14 +45,6 @@ router.get('/', (req, res) => {
         }))
         .then(bookings => {
             bookings.forEach(booking => {
-                // console.log("bs:", new Date(booking.dateStart.getTime()),
-                //     "be", new Date(booking.dateEnd.getTime()),
-                //     "qs", new Date(startDate),
-                //     "qe", new Date(endDate))
-                // console.log("bs:", booking.dateStart.getTime(),
-                //     "be", booking.dateEnd.getTime(),
-                //     "qs", startDate,
-                //     "qe", endDate)
                 if ((booking.dateStart.getTime() <= endDate) && (startDate <= booking.dateEnd.getTime())) {
                     console.log("yes they overlap!")
 
@@ -64,13 +56,8 @@ router.get('/', (req, res) => {
                 }
                 console.log("finally vans are", noBookedVans.length)
             })
-           
             res.json(noBookedVans)
         })
-        // .then(response => {
-        //     res.json(response)
-        // })
-
         .catch(err => res.status(500).json(err))
 })
 

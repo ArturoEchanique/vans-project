@@ -2,6 +2,11 @@ const { Schema, model } = require("mongoose");
 
 const vanSchema = new Schema(
     {
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
         name: {
             type: String,
             required: [true, "Please provide a name"],
@@ -18,8 +23,19 @@ const vanSchema = new Schema(
             type: Number,
             required: true,
         },
-        solarPower: {
-            type: Boolean,
+        vanSpecs: {
+            solarPower: {
+                type: Boolean,
+            },
+            shower: {
+                type: Boolean,
+            },
+            bathroom: {
+                type: Boolean,
+            },
+            maxPassengers: {
+                type: Number,
+            },
         },
         location: {
             type: {
@@ -28,6 +44,10 @@ const vanSchema = new Schema(
             coordinates: [Number],
             // required: [true, "Please Provide a location"],
         },
+        reviews: [{
+            type: Schema.Types.ObjectId,
+            ref: "Review",
+        }],
     },
     {
         timestamps: true,
