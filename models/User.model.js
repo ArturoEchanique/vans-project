@@ -20,13 +20,13 @@ const userSchema = new Schema(
             type: String,
             default: "https://i.stack.imgur.com/34AD2.jpg",
         },
-        tenantBookings: [
+        userBookings: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Reservation",
             },
         ],
-        LessorBooking: [
+        ownerBooking: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Reservation",

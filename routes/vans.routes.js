@@ -27,7 +27,7 @@ router.post('/create', isAuthenticated, (req, res) => {
 
 router.get('/', (req, res) => {
     const { name } = req.query
-    let filterParams = {...req.query}
+    let filterParams = { ...req.query }
     delete filterParams["name"]
     delete filterParams["startDate"]
     delete filterParams["endDate"]
@@ -51,12 +51,12 @@ router.get('/', (req, res) => {
         .then(bookings => {
             bookings.forEach(booking => {
                 console.log("bsd", booking.startDate.getTime(), "bed", booking.endDate.getTime(),
-                "qsd", startDate, "qed", endDate)
+                    "qsd", startDate, "qed", endDate)
                 if ((booking.startDate.getTime() <= endDate) && (startDate <= booking.endDate.getTime())) {
                     console.log("yes they overlap!")
 
                     noBookedVans = noBookedVans.filter(van => van._id.toString() !== booking.van.toString())
-                    
+
                 }
                 else {
                     console.log("NO dont overlap!")
