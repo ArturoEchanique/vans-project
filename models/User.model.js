@@ -26,7 +26,7 @@ const userSchema = new Schema(
                 ref: "Reservation",
             },
         ],
-        ownerBooking: [
+        ownerBookings: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Reservation",
