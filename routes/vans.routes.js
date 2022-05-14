@@ -31,8 +31,8 @@ router.get('/', (req, res) => {
     delete filterParams["name"]
     delete filterParams["startDate"]
     delete filterParams["endDate"]
-    console.log("filterParams is", filterParams)
-    console.log("query is", req.query)
+    // console.log("filterParams is", filterParams)
+    // console.log("query is", req.query)
     let { startDate, endDate } = req.query
     startDate = Number(startDate)
     endDate = Number(endDate)
@@ -45,23 +45,21 @@ router.get('/', (req, res) => {
         .then((vans => {
             noBookedVans = vans
             filteredVansIds = vans.map(van => van._id)
-            // noBookedVans = filteredVansIds
             return Booking.find({ van: { $in: filteredVansIds } })
         }))
         .then(bookings => {
             bookings.forEach(booking => {
-                console.log("bsd", booking.startDate.getTime(), "bed", booking.endDate.getTime(),
-                "qsd", startDate, "qed", endDate)
+                // console.log("bsd", booking.startDate.getTime(), "bed", booking.endDate.getTime(),
+                // "qsd", startDate, "qed", endDate)
                 if ((booking.startDate.getTime() <= endDate) && (startDate <= booking.endDate.getTime())) {
-                    console.log("yes they overlap!")
-
-                    noBookedVans = noBookedVans.filter(van => van._id.toString() !== booking.van.toString())
+                    // console.log("yes they overlap!")
+                    console.log( "this is booking", booking, "this is booking van", booking.bookedVan)
+                    noBookedVans = noBookedVans.filter(van => van._id.toString() !== booking.bookedVan.toString())
                     
                 }
                 else {
-                    console.log("NO dont overlap!")
+                    // console.log("NO dont overlap!")
                 }
-                console.log("finally vans are", noBookedVans.length)
             })
             res.json(noBookedVans)
         })

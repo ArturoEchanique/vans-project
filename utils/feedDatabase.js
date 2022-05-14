@@ -95,7 +95,7 @@ const generateBookings = (vansIds, count) => {
             startDate: dateRange[0],
             endDate: dateRange[1],
             price: 100,
-            van: vanId
+            bookedVan: vanId
         }
         bookings.push(booking)
     }
