@@ -42,7 +42,7 @@ const generateVans = (usersIds, reviewsIds, count) => {
         const reviewsIdsArr = reviewsIds.slice(Math.floor(Math.random() * reviewsIds.length), reviewsIds.length - 1)
         const ranBool = () => random_boolean = Math.random() < 0.5
         const ranPassengers = Math.floor(Math.random() * 10)
-        const ranPrice = Math.floor(Math.random() * 200)
+        const ranPrice = Math.floor(Math.random() * 400)
         const RanLocation = [(Math.floor(Math.random() * 100) - 50), (Math.floor(Math.random() * 100) - 50)]
         const newVan =
         {
