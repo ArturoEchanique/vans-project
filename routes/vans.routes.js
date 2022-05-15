@@ -4,9 +4,10 @@ const Van = require("./../models/Van.model")
 const { isAuthenticated } = require('./../middlewares/jwt.middleware')
 
 router.post('/create', isAuthenticated, (req, res) => {
-    const { name, description, imageUrl, dayPrice, longitude, latitude } = req.body
+    const { owner, name, description, imageUrl, dayPrice, longitude, latitude } = req.body
     const randomBool = random_boolean = Math.random() < 0.5
     const newVan = {
+        owner,
         name,
         description,
         dayPrice,
@@ -42,8 +43,8 @@ router.get('/', (req, res) => {
 
     Van
         .find({
-            dayPrice: {$gte: priceStart, $lt: priceEnd}, name: { $regex: `${name}`, $options: "i" }, ...filterParams
-            })
+            dayPrice: { $gte: priceStart, $lt: priceEnd }, name: { $regex: `${name}`, $options: "i" }, ...filterParams
+        })
         .then((vans => {
             noBookedVans = vans
             filteredVansIds = vans.map(van => van._id)

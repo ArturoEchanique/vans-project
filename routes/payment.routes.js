@@ -3,7 +3,6 @@ const Stripe = require("stripe");
 const stripe = new Stripe("sk_test_51KwTPNGY00AWRT2Zg3lK6oZsLUyexpM7F3wZ8xaX3LDeVtHyAfUY30aw9bNrU34QfWU5T17xzKwoA0jN4p9pbe8w00iwnBIzqK");
 
 
-
 router.post('/', async (req, res) => {
     const { id, amount } = req.body;
 

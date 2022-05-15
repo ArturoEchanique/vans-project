@@ -14,10 +14,10 @@ router.get("/get-all", (req, res) => {
 router.post("/edit/:user_id", isAuthenticated, (req, res) => {
 
     const { user_id } = req.params;
-    const { email, password, username, imageUrl } = req.body
+    const { email, password, username, imageUrl, role } = req.body
 
     User
-        .findByIdAndUpdate(user_id, { email, password, username, imageUrl })
+        .findByIdAndUpdate(user_id, { email, password, username, imageUrl, role })
         .then((response) => res.json(response))
         .catch((err) => res.status(500).json(err));
 });
