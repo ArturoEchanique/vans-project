@@ -17,7 +17,7 @@ const vanSchema = new Schema(
             minlength: [4, "the description must be 4 characters long"],
         },
         imageUrl: {
-            type: String,
+            type: [String],
         },
         dayPrice: {
             type: Number,
