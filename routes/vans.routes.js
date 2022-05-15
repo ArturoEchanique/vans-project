@@ -49,6 +49,8 @@ router.get('/', (req, res) => {
             "location.coordinates.0": { $gte: mapYBoundsArr[0], $lt: mapYBoundsArr[1] }, 
             "location.coordinates.1": { $gte: mapXBoundsArr[0], $lt: mapXBoundsArr[1] },
             name: { $regex: `${name}`, $options: "i" }, ...filterParams})
+        .sort({ 'vanRating': -1 })
+        .limit(20)
         .then((vans => {
             console.log("se han traido estas vans------", vans.length)
             noBookedVans = vans

@@ -42,6 +42,12 @@ const vanSchema = new Schema(
             coordinates: [Number],
             // required: [true, "Please Provide a location"],
         },
+        vanRating: {
+            type: Number,
+            required: true,
+            min: 0,
+            max: 5,
+        },
         reviews: [{
             type: Schema.Types.ObjectId,
             ref: "Review",
