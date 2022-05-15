@@ -26,8 +26,11 @@ router.post('/create', isAuthenticated, (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    const { name, priceStart, priceEnd } = req.query
+    const { name, priceStart, priceEnd, mapXBounds, mapYBounds } = req.query
     let filterParams = { ...req.query }
+    const mapXBoundsArr = mapXBounds.split(",").map(str => Number(str))
+    const mapYBoundsArr = mapYBounds.split(",").map(str => Number(str))
+    console.log("mapxboundsarr is --------------",mapXBoundsArr)
     delete filterParams["name"]
     delete filterParams["startDate"]
     delete filterParams["endDate"]
@@ -41,10 +44,12 @@ router.get('/', (req, res) => {
     let filteredVansIds = []
 
     Van
-        .find({
-            dayPrice: {$gte: priceStart, $lt: priceEnd}, name: { $regex: `${name}`, $options: "i" }, ...filterParams
-            })
+        .find({ dayPrice: { $gte: priceStart, $lt: priceEnd }, 
+            "location.coordinates.0": { $gte: mapYBoundsArr[0], $lt: mapYBoundsArr[1] }, 
+            "location.coordinates.1": { $gte: mapXBoundsArr[0], $lt: mapXBoundsArr[1] },
+            name: { $regex: `${name}`, $options: "i" }, ...filterParams})
         .then((vans => {
+            console.log("se han traido estas vans------", vans.length)
             noBookedVans = vans
             filteredVansIds = vans.map(van => van._id)
             return Booking.find({ van: { $in: filteredVansIds } })

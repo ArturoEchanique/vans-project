@@ -43,7 +43,7 @@ const generateVans = (usersIds, reviewsIds, count) => {
         const ranBool = () => random_boolean = Math.random() < 0.5
         const ranPassengers = Math.floor(Math.random() * 10)
         const ranPrice = Math.floor(Math.random() * 400)
-        const RanLocation = [(Math.floor(Math.random() * 100) - 50), (Math.floor(Math.random() * 100) - 50)]
+        const RanLocation = [((Math.random() * 9) + 36), ((Math.random() * 8) - 8)]
         const newVan =
         {
             owner: owner,
