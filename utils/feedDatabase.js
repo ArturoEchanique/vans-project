@@ -43,7 +43,8 @@ const generateVans = (usersIds, reviewsIds, count) => {
         const ranBool = () => random_boolean = Math.random() < 0.5
         const ranPassengers = Math.floor(Math.random() * 10)
         const ranPrice = Math.floor(Math.random() * 400)
-        const RanLocation = [((Math.random() * 9) + 36), ((Math.random() * 8) - 8)]
+        const ranRating = Math.round((Math.random() * 5) * 100) / 100
+        const ranLocation = [((Math.random() * 8) + 36), ((Math.random() * 8) - 8)]
         const newVan =
         {
             owner: owner,
@@ -54,13 +55,13 @@ const generateVans = (usersIds, reviewsIds, count) => {
             solarPower: ranBool,
             location: {
                 type: 'Point',
-                coordinates: [RanLocation[0], RanLocation[1]]
+                coordinates: [ranLocation[0], ranLocation[1]]
             },
             solarPower: ranBool(),
             shower: ranBool(),
             bathroom: ranBool(),
             maxPassengers: ranPassengers,
-
+            vanRating: ranRating,
             reviews: reviewsIdsArr,
         }
         newVans.push(newVan)
