@@ -26,7 +26,7 @@ const userSchema = new Schema(
                 ref: "Reservation",
             },
         ],
-        ownerBooking: [
+        ownerBookings: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Reservation",
@@ -38,7 +38,7 @@ const userSchema = new Schema(
         // },
         role: {
             type: String,
-            enum: ["ADMIN", "USER"],
+            enum: ["ADMIN", "USER", "OWNER"],
             default: 'USER'
         },
     },

@@ -4,9 +4,10 @@ const Van = require("./../models/Van.model")
 const { isAuthenticated } = require('./../middlewares/jwt.middleware')
 
 router.post('/create', isAuthenticated, (req, res) => {
-    const { name, description, imageUrl, dayPrice, longitude, latitude } = req.body
+    const { owner, name, description, imageUrl, dayPrice, longitude, latitude } = req.body
     const randomBool = random_boolean = Math.random() < 0.5
     const newVan = {
+        owner,
         name,
         description,
         dayPrice,
