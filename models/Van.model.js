@@ -44,7 +44,7 @@ const vanSchema = new Schema(
         },
         vanRating: {
             type: Number,
-            required: true,
+            default: 4,
             min: 0,
             max: 5,
         },
