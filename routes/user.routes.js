@@ -46,8 +46,6 @@ router.post("/:user_id/addUserBookings", (req, res) => {
     const { user_id } = req.params
     const { userBookings } = req.body
 
-
-
     User
         .findByIdAndUpdate(user_id, { $push: { userBookings } },)
         .then(response => res.status(200).json(response))

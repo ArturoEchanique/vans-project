@@ -3,9 +3,9 @@ const router = require("express").Router();
 const Booking = require("../models/Booking.model");
 
 router.post("/create", (req, res) => {
-    const { startDate, endDate, price, van_id } = req.body;
+    const { startDate, endDate, price, bookedVan } = req.body;
 
-    Booking.create({ startDate, endDate, price, van_id })
+    Booking.create({ startDate, endDate, price, bookedVan })
         .then((response) => res.json(response))
         .catch((err) => res.status(500).json(err));
 });

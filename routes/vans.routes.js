@@ -67,6 +67,16 @@ router.get('/', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+router.get("/get-vans", (req, res) => {
+    const { owner } = req.query;
+
+    console.log("HOLAAAAA", owner);
+
+    Van.find({ owner: owner })
+        .then((response) => res.status(200).json(response))
+        .catch((err) => res.status(500).json(err));
+});
+
 router.get('/:van_id', (req, res) => {
     const { van_id } = req.params
 
