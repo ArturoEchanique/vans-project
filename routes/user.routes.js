@@ -45,7 +45,6 @@ router.post("/:user_id/add-favorite-van", (req, res) => {
 
     const { user_id } = req.params
     const { vanId } = req.body
-    console.log("vanId IS...", vanId)
 
     User
         .findByIdAndUpdate(user_id, { $push: { favoriteVans: vanId } },)
@@ -57,7 +56,6 @@ router.post("/:user_id/remove-favorite-van", (req, res) => {
 
     const { user_id } = req.params
     const { vanId } = req.body
-    console.log("vanId IS...", vanId)
 
     User
         .findByIdAndUpdate(user_id, { $pull: { favoriteVans: vanId  } },)
