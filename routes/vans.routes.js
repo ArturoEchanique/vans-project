@@ -26,8 +26,11 @@ router.post('/create', isAuthenticated, (req, res) => {
 
 })
 
+//get vans with filter parameters
 router.get('/', (req, res) => {
-    const { name, priceStart, priceEnd, mapXBounds, mapYBounds, skip } = req.query
+    const { name, priceStart, priceEnd, mapXBounds, mapYBounds} = req.query
+    let {skip} = req.query
+    if(!skip) skip = 0
     let filterParams = { ...req.query }
     const mapXBoundsArr = mapXBounds.split(",").map(str => Number(str))
     const mapYBoundsArr = mapYBounds.split(",").map(str => Number(str))

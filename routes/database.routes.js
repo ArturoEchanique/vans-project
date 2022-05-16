@@ -12,18 +12,18 @@ router.post("/delete-and-generate", (req, res) => {
     let reviewsIds = []
     let vansIds = []
     let usersIds = []
-    let userCount = 0
+    let currentUsersCount = 0
     User
         .count()
         .then((count) => {
-            userCount = count
+            currentUsersCount = count
             Van.remove()
         })
         .then(() => Van.remove())
         .then(() => Booking.remove())
         .then(() => Review.remove())
         .then(() => {
-            return User.create(generateUsers(userCount))
+            return User.create(generateUsers(currentUsersCount, 5))
         })
         .then((users) => {
             usersArr = users

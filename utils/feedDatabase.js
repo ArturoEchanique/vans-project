@@ -69,15 +69,15 @@ const generateVans = (usersIds, reviewsIds, count) => {
     return newVans
 }
 
-const generateUsers = (userCount) => {
+const generateUsers = (currentUsersCount, newUsersCount) => {
 
     let newUsers = []
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < newUsersCount; i++) {
         const newUser =
         {
-            username: `user${userCount + i}`,
-            email: `user${userCount + i}@gmail.com`,
-            password: `user${userCount + i}`,
+            username: `user${currentUsersCount + i}`,
+            email: `user${currentUsersCount + i}@gmail.com`,
+            password: `user${currentUsersCount + i}`,
             imageUrl: "https://i.stack.imgur.com/34AD2.jpg"
         }
         newUsers.push(newUser)

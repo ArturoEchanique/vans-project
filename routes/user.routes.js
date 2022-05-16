@@ -41,6 +41,30 @@ router.get("/:user_id", isAuthenticated, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+router.post("/:user_id/add-favorite-van", (req, res) => {
+
+    const { user_id } = req.params
+    const { vanId } = req.body
+    console.log("vanId IS...", vanId)
+
+    User
+        .findByIdAndUpdate(user_id, { $push: { favoriteVans: vanId } },)
+        .then(response => res.status(200).json(response))
+        .catch(err => res.status(500).json(err))
+})
+
+router.post("/:user_id/remove-favorite-van", (req, res) => {
+
+    const { user_id } = req.params
+    const { vanId } = req.body
+    console.log("vanId IS...", vanId)
+
+    User
+        .findByIdAndUpdate(user_id, { $pull: { favoriteVans: vanId  } },)
+        .then(response => res.status(200).json(response))
+        .catch(err => res.status(500).json(err))
+})
+
 router.post("/:user_id/addUserBookings", (req, res) => {
 
     const { user_id } = req.params
@@ -51,6 +75,8 @@ router.post("/:user_id/addUserBookings", (req, res) => {
         .then(response => res.status(200).json(response))
         .catch(err => res.status(500).json(err))
 })
+
+
 
 router.post("/:user_id/addOwnerBookings", (req, res) => {
 
