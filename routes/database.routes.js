@@ -28,6 +28,7 @@ router.post("/delete-and-generate", (req, res) => {
         })
         .then(() => Van.remove())
         .then(() => Booking.remove())
+        .then(() => Chat.remove())
         .then(() => Review.remove())
         .then(() => Message.remove())
         .then(() => {
@@ -44,11 +45,11 @@ router.post("/delete-and-generate", (req, res) => {
         .then((reviews) => {
             reviewsArr = reviews
             reviewsIds = reviewsArr.map(review => review._id)
-            return Van.create(generateVans(usersIds, reviewsIds, 10))
+            return Van.create(generateVans(usersIds, reviewsIds, 20))
         })
         .then((vans) => {
             vansIds = vans.map(van => van._id)
-            return Booking.create(generateBookings(vansIds, 10))
+            return Booking.create(generateBookings(vansIds, 100))
         })
         .then(() => {
             return Booking.find().populate("bookedVan")
@@ -59,7 +60,9 @@ router.post("/delete-and-generate", (req, res) => {
             bookings.forEach(booking => {
                 userOwnerBookingPromises.push(User.findByIdAndUpdate(booking.bookedVan.owner, { $push: { ownerBookings: booking._id } }))
                 let bookingReserver = booking.bookedVan.owner
-                while (bookingReserver === booking.bookedVan.owner) bookingReserver = usersIds[Math.floor(Math.random() * usersIds.length)]
+                
+                while (bookingReserver.toString() === booking.bookedVan.owner.toString()) bookingReserver = usersIds[Math.floor(Math.random() * usersIds.length)]
+                console.log("los ids son...", bookingReserver, booking.bookedVan.owner)
                 userUserBookingPromises.push(User.findByIdAndUpdate(bookingReserver, { $push: { userBookings: booking._id } }))
                 chatPromises.push(Chat.create({ owners: [booking.bookedVan.owner, bookingReserver], booking: booking._id }))
             })
@@ -71,14 +74,15 @@ router.post("/delete-and-generate", (req, res) => {
         .then(() => {
             return Promise.all(chatPromises)
         })
+        .then(() => {
+            return Chat.find().populate("owners")
+        })
         .then((chats) => {
-            console.log("chats are", chats)
-            return Message.create(generateMessages(chats, 20))
+            return Message.create(generateMessages(chats, 5))
         })
         
 
         .then((response) => {
-            console.log(response)
             res.status(200).json({ message: "Database regenerated" })
         })
         .catch(err => res.status(500).json(err))
