@@ -36,13 +36,8 @@ const userSchema = new Schema(
             {
                 type: Schema.Types.ObjectId,
                 ref: "Van",
-                unique: true,
             },
         ],
-        // banckthing: {
-        //     type: String,
-        //     required: true,
-        // },
         role: {
             type: String,
             enum: ["ADMIN", "USER", "OWNER"],
