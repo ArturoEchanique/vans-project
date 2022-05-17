@@ -7,6 +7,8 @@ router.use("/user", require("./user.routes"));
 router.use("/database", require("./database.routes"));
 router.use("/upload", require("./upload.routes"));
 router.use("/checkout", require("./payment.routes"));
+router.use("/mail", require("./nodemailer.routes"));
+
 
 
 
