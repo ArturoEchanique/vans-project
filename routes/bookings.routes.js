@@ -1,13 +1,28 @@
 const router = require("express").Router();
 
+const { isAuthenticated } = require("../middlewares/jwt.middleware");
 const Booking = require("../models/Booking.model");
+const UserModel = require("../models/User.model");
+
+// TODO: Mejor asi o explicitamente en cada ruta?
+router.use(isAuthenticated);
 
 router.post("/create", (req, res) => {
+    const { _id: userId } = req.payload;
     const { startDate, endDate, price, bookedVan } = req.body;
+    let booking;
 
     Booking.create({ startDate, endDate, price, bookedVan })
-        .then((response) => res.json(response))
-        .catch((err) => res.status(500).json(err));
+        .then((_booking) => {
+            booking = _booking;
+
+            return UserModel.findOneAndUpdate({ _id: userId }, { $push: { userBookings: booking._id } });
+        })
+        .then(() => res.json(booking))
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json(err);
+        });
 });
 
 router.get("/get-all", (req, res) => {
