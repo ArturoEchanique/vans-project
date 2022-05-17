@@ -36,13 +36,13 @@ const generateReviews = (usersIds, count) => {
 
 const generateMessages = (chats, count) => {
 
-    const text = "The location is outstanding. We walked into the village to get coffee through two wooded paths, and the Raven Pub was just up the street offering a warm and welcoming environment and great pub fare. The view over the water was fantastic. The whole unit was very clean and tidy when we arrived and everything was available and handy. "
-
     let newMessages = []
     chats.forEach(chat => {
         for (let j = 0; j < count; j++) {
-
-            const owner = chat.owners[Math.floor(Math.random() * 2)]
+            const randomInt = Math.floor(Math.random() * 2)
+            const owner = chat.owners[randomInt]
+            const receiver = chat.owners[(randomInt + 1) % 2]
+            const text = `This is a message from ${owner.username} to ${receiver.username},message number ${j} in this chat`
             const newMessage =
             {
                 owner: owner,
@@ -53,9 +53,9 @@ const generateMessages = (chats, count) => {
             newMessages.push(newMessage)
         }
     })
-        
-        
-    
+
+
+
     return newMessages
 }
 
