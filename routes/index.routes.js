@@ -9,6 +9,8 @@ router.use("/upload", require("./upload.routes"));
 router.use("/checkout", require("./payment.routes"));
 router.use("/mail", require("./nodemailer.routes"));
 
+router.use("/reviews", require("./reviews.routes"));
+router.use("/messages", require("./messages.routes"));
 
 
 

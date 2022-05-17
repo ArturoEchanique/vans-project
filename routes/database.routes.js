@@ -3,8 +3,9 @@ const Van = require("./../models/Van.model")
 const Review = require("./../models/Review.model")
 const Booking = require("./../models/Booking.model");
 const User = require("./../models/User.model")
+const Message = require("./../models/Message.model")
 
-const { generateBookings, generateUsers, generateVans, generateReviews } = require("../utils/feedDatabase");
+const { generateBookings, generateUsers, generateVans, generateReviews, generateMessages } = require("../utils/feedDatabase");
 
 router.post("/delete-and-generate", (req, res) => {
     let usersArr = []
@@ -22,18 +23,24 @@ router.post("/delete-and-generate", (req, res) => {
         .then(() => Van.remove())
         .then(() => Booking.remove())
         .then(() => Review.remove())
+        .then(() => Message.remove())
         .then(() => {
             return User.create(generateUsers(currentUsersCount, 5))
         })
         .then((users) => {
             usersArr = users
             usersIds = usersArr.map(user => user._id)
-            return Review.create(generateReviews(usersIds, 5))
+            return Message.create(generateMessages(usersIds, 50))
+        })
+        .then(() => {
+            // usersArr = users
+            // usersIds = usersArr.map(user => user._id)
+            return Review.create(generateReviews(usersIds, 50))
         })
         .then((reviews) => {
             reviewsArr = reviews
             reviewsIds = reviewsArr.map(review => review._id)
-            return Van.create(generateVans(usersIds, reviewsIds, 1000))
+            return Van.create(generateVans(usersIds, reviewsIds, 10))
         })
         .then((vans) => {
             vansIds = vans.map(van => van._id)

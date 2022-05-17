@@ -1,61 +1,64 @@
-const router = require("express").Router()
-const User = require("../models/User.model")
-const { isAuthenticated } = require('./../middlewares/jwt.middleware')
-
+const router = require("express").Router();
+const User = require("../models/User.model");
+const { isAuthenticated } = require("./../middlewares/jwt.middleware");
 
 router.get("/get-all", (req, res) => {
-
-    User
-        .find()
-        .then(response => res.status(200).json(response))
-        .catch(err => res.status(500).json(err))
-})
+    User.find()
+        .then((response) => res.status(200).json(response))
+        .catch((err) => res.status(500).json(err));
+});
 
 router.post("/edit/:user_id", isAuthenticated, (req, res) => {
-
     const { user_id } = req.params;
-    const { email, password, username, imageUrl, role } = req.body
+    const { email, password, username, imageUrl, role } = req.body;
 
-    User
-        .findByIdAndUpdate(user_id, { email, password, username, imageUrl, role })
+    User.findByIdAndUpdate(user_id, { email, password, username, imageUrl, role })
         .then((response) => res.json(response))
         .catch((err) => res.status(500).json(err));
 });
 
 router.post("/delete/:user_id", isAuthenticated, (req, res) => {
-
     const { user_id } = req.params;
-    User
-        .findByIdAndDelete(user_id)
+    User.findByIdAndDelete(user_id)
         .then((response) => res.json(response))
         .catch((err) => res.status(500).json(err));
 });
 
 router.get("/:user_id", isAuthenticated, (req, res) => {
+    const { user_id } = req.params;
 
-    const { user_id } = req.params
+    User.findById(user_id)
+        .populate("userBookings ownerBookings favoriteVans")
 
-    User
-        .findById(user_id)
-        .then(response => res.status(200).json(response))
-        .catch(err => res.status(500).json(err))
-})
+        .populate({
+            path: "userBookings",
+            populate: {
+                path: "bookedVan",
+                model: "Van",
+            },
+        })
+        .populate({
+            path: "ownerBookings",
+            populate: {
+                path: "bookedVan",
+                model: "Van",
+            },
+        })
+        .then((response) => res.status(200).json(response)).catch((err) => console.log(err));
+});
 
 router.post("/:user_id/add-favorite-van", (req, res) => {
+    const { user_id } = req.params;
+    const { vanId } = req.body;
 
-    const { user_id } = req.params
-    const { vanId } = req.body
-
-    User
-        .findByIdAndUpdate(user_id, { $push: { favoriteVans: vanId } },)
-        .then(response => res.status(200).json(response))
-        .catch(err => res.status(500).json(err))
-})
+    User.findByIdAndUpdate(user_id, { $push: { favoriteVans: vanId } })
+        .then((response) => res.status(200).json(response))
+        .catch((err) => res.status(500).json(err));
+});
 
 router.post("/:user_id/remove-favorite-van", (req, res) => {
-
-    const { user_id } = req.params
-    const { vanId } = req.body
+    const { user_id } = req.params;
+    const { vanId } = req.body;
 
     User
         .findByIdAndUpdate(user_id, { $pull: { favoriteVans: vanId } },)
@@ -64,6 +67,4 @@ router.post("/:user_id/remove-favorite-van", (req, res) => {
 })
 
 
-
-
-module.exports = router
+module.exports = router;

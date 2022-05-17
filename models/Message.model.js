@@ -1,20 +1,19 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
-const reviewSchema = new Schema(
+const messageSchema = new Schema(
     {
         owner: {
             type: Schema.Types.ObjectId,
             ref: "User",
             required: true,
         },
-        rating: {
-            type: Number,
-            default: 5,
-            min: 0,
-            max: 5,
+        receiver: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
         },
-        reviewDate: {
+        messageDate: {
             type: Date,
             required: true,
         },
@@ -27,4 +26,4 @@ const reviewSchema = new Schema(
         timestamps: true,
     }
 );
-module.exports = model("Review", reviewSchema);
+module.exports = model("Message", messageSchema);
