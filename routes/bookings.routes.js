@@ -1,57 +1,58 @@
 const router = require("express").Router();
-
-const { isAuthenticated } = require("../middlewares/jwt.middleware");
 const Booking = require("../models/Booking.model");
-const UserModel = require("../models/User.model");
-
-// TODO: Mejor asi o explicitamente en cada ruta?
-router.use(isAuthenticated);
+const User = require("../models/User.model")
 
 router.post("/create", (req, res) => {
-    const { _id: userId } = req.payload;
-    const { startDate, endDate, price, bookedVan } = req.body;
-    let booking;
 
-    Booking.create({ startDate, endDate, price, bookedVan })
-        .then((_booking) => {
-            booking = _booking;
+    const { owner_id, user_id } = req.query
+    const { startDate, endDate, price, bookedVan } = req.body
+    let bookingId = ""
 
-            return UserModel.findOneAndUpdate({ _id: userId }, { $push: { userBookings: booking._id } });
+
+    Booking
+        .create({ startDate, endDate, price, bookedVan })
+        .then((booking) => {
+            bookingId = booking._id
+            return User.findByIdAndUpdate(user_id, { $push: { userBookings: bookingId } })
         })
-        .then(() => res.json(booking))
-        .catch((err) => {
-            console.error(err);
-            res.status(500).json(err);
-        });
+        .then(() => User.findByIdAndUpdate(owner_id, { $push: { ownerBookings: bookingId } },))
+        .then((response) => res.json(response))
+        .catch((err) => res.status(500).json(err))
 });
 
 router.get("/get-all", (req, res) => {
-    Booking.find()
+
+    Booking
+        .find()
         .then((response) => res.json(response))
-        .catch((err) => res.status(500).json(err));
+        .catch((err) => res.status(500).json(err))
 });
 
 router.get("/:booking_id", (req, res) => {
-    const { booking_id } = req.params;
+    const { booking_id } = req.params
 
-    Booking.findById(booking_id)
+    Booking
+        .findById(booking_id)
         .then((response) => res.json(response))
-        .catch((err) => res.status(500).json(err));
+        .catch((err) => res.status(500).json(err))
 });
 
-router.post("/edit/:bookings_id", (req, res, next) => {
-    const { id } = req.params;
-    const { startDate, endDate, price, van } = req.body;
+router.post("/edit/:bookings_id", (req, res) => {
+    const { id } = req.params
+    const { startDate, endDate, price, van } = req.body
 
-    Booking.findByIdAndUpdate(id, { startDate, endDate, price, van })
+    Booking
+        .findByIdAndUpdate(id, { startDate, endDate, price, van })
         .then((response) => res.json(response))
-        .catch((err) => res.status(500).json(err));
+        .catch((err) => res.status(500).json(err))
 });
 
-router.post("/delete/:booking_id", (req, res, next) => {
-    const { booking_id } = req.params;
-    Booking.findByIdAndDelete(booking_id)
+router.post("/delete/:booking_id", (req, res) => {
+    const { booking_id } = req.params
+
+    Booking
+        .findByIdAndDelete(booking_id)
         .then((response) => res.json(response))
-        .catch((err) => res.status(500).json(err));
+        .catch((err) => res.status(500).json(err))
 });
 module.exports = router;
