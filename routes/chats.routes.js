@@ -33,15 +33,15 @@ router.get("/get-user-chats/:user_id", (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-// router.get("/get-user-chats/:user_id", (req, res) => {
+router.post("/create-chat", (req, res) => {
 
-//     const { user_id } = req.params
+    const newChat = { owners, booking  } = req.body
 
-//     Chat
-//         .find({ $or: [{ owner: user_id }, { receiver: user_id }] })
-//         .then(response => res.status(200).json(response))
-//         .catch(err => res.status(500).json(err))
-// })
+    Chat
+        .create(newChat)
+        .then(response => res.status(200).json(response))
+        .catch(err => res.status(500).json(err))
+})
 
 router.get("/:chat_id/", (req, res) => {
 
