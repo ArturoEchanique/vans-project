@@ -4,7 +4,8 @@ const Van = require("./../models/Van.model")
 const { isAuthenticated } = require('./../middlewares/jwt.middleware')
 
 router.post('/create', isAuthenticated, (req, res) => {
-    const { owner, name, description, imageUrl, dayPrice, longitude, latitude } = req.body
+    const { owner, name, description, imageUrl, dayPrice, longitude, latitude, solarPower, shower,
+        bathroom, maxPassengers } = req.body
     const randomBool = random_boolean = Math.random() < 0.5
     const newVan = {
         owner,
@@ -12,7 +13,10 @@ router.post('/create', isAuthenticated, (req, res) => {
         description,
         dayPrice,
         imageUrl,
-        solarPower: randomBool,
+        solarPower,
+        shower,
+        bathroom,
+        maxPassengers,
         location: {
             type: 'Point',
             coordinates: [longitude, latitude]
@@ -28,9 +32,9 @@ router.post('/create', isAuthenticated, (req, res) => {
 
 //get vans with filter parameters
 router.get('/', (req, res) => {
-    const { name, priceStart, priceEnd, mapXBounds, mapYBounds} = req.query
-    let {skip} = req.query
-    if(!skip) skip = 0
+    const { name, priceStart, priceEnd, mapXBounds, mapYBounds } = req.query
+    let { skip } = req.query
+    if (!skip) skip = 0
     let filterParams = { ...req.query }
     const mapXBoundsArr = mapXBounds.split(",").map(str => Number(str))
     const mapYBoundsArr = mapYBounds.split(",").map(str => Number(str))
@@ -45,10 +49,12 @@ router.get('/', (req, res) => {
     let filteredVansIds = []
 
     Van
-        .find({ dayPrice: { $gte: priceStart, $lt: priceEnd }, 
-            "location.coordinates.0": { $gte: mapYBoundsArr[0], $lt: mapYBoundsArr[1] }, 
+        .find({
+            dayPrice: { $gte: priceStart, $lt: priceEnd },
+            "location.coordinates.0": { $gte: mapYBoundsArr[0], $lt: mapYBoundsArr[1] },
             "location.coordinates.1": { $gte: mapXBoundsArr[0], $lt: mapXBoundsArr[1] },
-            name: { $regex: `${name}`, $options: "i" }, ...filterParams})
+            name: { $regex: `${name}`, $options: "i" }, ...filterParams
+        })
         .sort({ 'vanRating': -1 })
         .skip(skip)
         .limit(20)

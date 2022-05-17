@@ -12,6 +12,5 @@ const allRoutes = require("./routes/index.routes");
 app.use("/api", allRoutes);
 
 require("./error-handling")(app);
-// require("./config/socket.io")
 
 module.exports = app;

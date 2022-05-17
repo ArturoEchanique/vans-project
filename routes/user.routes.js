@@ -60,27 +60,11 @@ router.post("/:user_id/remove-favorite-van", (req, res) => {
     const { user_id } = req.params;
     const { vanId } = req.body;
 
-    User.findByIdAndUpdate(user_id, { $pull: { favoriteVans: vanId } })
-        .then((response) => res.status(200).json(response))
-        .catch((err) => res.status(500).json(err));
-});
+    User
+        .findByIdAndUpdate(user_id, { $pull: { favoriteVans: vanId } },)
+        .then(response => res.status(200).json(response))
+        .catch(err => res.status(500).json(err))
+})
 
-router.post("/:user_id/addUserBookings", (req, res) => {
-    const { user_id } = req.params;
-    const { userBookings } = req.body;
-
-    User.findByIdAndUpdate(user_id, { $push: { userBookings } })
-        .then((response) => res.status(200).json(response))
-        .catch((err) => res.status(500).json(err));
-});
-
-router.post("/:user_id/addOwnerBookings", (req, res) => {
-    const { user_id } = req.params;
-    const { ownerBookings } = req.body;
-
-    User.findByIdAndUpdate(user_id, { $push: { ownerBookings } })
-        .then((response) => res.status(200).json(response))
-        .catch((err) => res.status(500).json(err));
-});
 
 module.exports = router;
