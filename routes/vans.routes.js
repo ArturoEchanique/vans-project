@@ -26,8 +26,11 @@ router.post('/create', isAuthenticated, (req, res) => {
 
 })
 
+//get vans with filter parameters
 router.get('/', (req, res) => {
-    const { name, priceStart, priceEnd, mapXBounds, mapYBounds } = req.query
+    const { name, priceStart, priceEnd, mapXBounds, mapYBounds} = req.query
+    let {skip} = req.query
+    if(!skip) skip = 0
     let filterParams = { ...req.query }
     const mapXBoundsArr = mapXBounds.split(",").map(str => Number(str))
     const mapYBoundsArr = mapYBounds.split(",").map(str => Number(str))
@@ -47,7 +50,8 @@ router.get('/', (req, res) => {
             "location.coordinates.1": { $gte: mapXBoundsArr[0], $lt: mapXBoundsArr[1] },
             name: { $regex: `${name}`, $options: "i" }, ...filterParams})
         .sort({ 'vanRating': -1 })
-        .limit(25)
+        .skip(skip)
+        .limit(20)
         .then((vans => {
             console.log("se han traido estas vans------", vans.length)
             noBookedVans = vans

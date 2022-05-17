@@ -32,6 +32,13 @@ const userSchema = new Schema(
                 ref: "Reservation",
             },
         ],
+        favoriteVans: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Van",
+                unique: true,
+            },
+        ],
         // banckthing: {
         //     type: String,
         //     required: true,
