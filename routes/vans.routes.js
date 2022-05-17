@@ -85,6 +85,7 @@ router.get('/:van_id', (req, res) => {
 
     Van
         .findById(van_id)
+        .populate("reviews")
         .then((response => res.json(response)))
         .catch(err => res.status(500).json(err))
 

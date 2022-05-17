@@ -34,6 +34,27 @@ const generateReviews = (usersIds, count) => {
     return newReviews
 }
 
+const generateMessages = (usersIds, count) => {
+
+    const text = "The location is outstanding. We walked into the village to get coffee through two wooded paths, and the Raven Pub was just up the street offering a warm and welcoming environment and great pub fare. The view over the water was fantastic. The whole unit was very clean and tidy when we arrived and everything was available and handy. "
+
+    // de momento owner y receiver son el mismo
+    let newMessages = []
+    for (let i = 0; i < count; i++) {
+        const owner = usersIds[Math.floor(Math.random() * usersIds.length)]
+        const receiver = usersIds[Math.floor(Math.random() * usersIds.length)]
+        const newMessage =
+        {
+            owner: owner,
+            receiver: receiver,
+            messageDate: randomDate(new Date(2022, 5, 1), new Date()),
+            text: text,
+        }
+        newMessages.push(newMessage)
+    }
+    return newMessages
+}
+
 const generateVans = (usersIds, reviewsIds, count) => {
 
     let newVans = []
@@ -103,4 +124,4 @@ const generateBookings = (vansIds, count) => {
     return bookings
 }
 
-module.exports = { generateBookings, generateUsers, generateVans, generateReviews }
+module.exports = { generateBookings, generateUsers, generateVans, generateReviews, generateMessages }
