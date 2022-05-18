@@ -1,12 +1,12 @@
-const router = require("express").Router();
+const router = require("express").Router()
 const Van = require("./../models/Van.model")
 const Review = require("./../models/Review.model")
-const Booking = require("./../models/Booking.model");
+const Booking = require("./../models/Booking.model")
 const User = require("./../models/User.model")
 const Message = require("./../models/Message.model")
 const Chat = require("./../models/Chat.model")
 
-const { generateBookings, generateUsers, generateVans, generateReviews, generateMessages } = require("../utils/feedDatabase");
+const { generateBookings, generateUsers, generateVans, generateReviews, generateMessages } = require("../utils/feedDatabase")
 
 router.post("/delete-and-generate", (req, res) => {
     let usersArr = []
@@ -20,8 +20,7 @@ router.post("/delete-and-generate", (req, res) => {
     let userOwnerBookingPromises = []
     let userUserBookingPromises = []
     let chatPromises = []
-    User
-        .count()
+    User.count()
         .then((count) => {
             currentUsersCount = count
             Van.remove()
@@ -39,16 +38,16 @@ router.post("/delete-and-generate", (req, res) => {
         })
         .then((users) => {
             usersArr = users
-            usersIds = usersArr.map(user => user._id)
+            usersIds = usersArr.map((user) => user._id)
             return Review.create(generateReviews(usersIds, 50))
         })
         .then((reviews) => {
             reviewsArr = reviews
-            reviewsIds = reviewsArr.map(review => review._id)
+            reviewsIds = reviewsArr.map((review) => review._id)
             return Van.create(generateVans(usersIds, reviewsIds, 20))
         })
         .then((vans) => {
-            vansIds = vans.map(van => van._id)
+            vansIds = vans.map((van) => van._id)
             return Booking.create(generateBookings(vansIds, 100))
         })
         .then(() => {
@@ -56,13 +55,13 @@ router.post("/delete-and-generate", (req, res) => {
         })
         .then((bookings) => {
             bookingsArr = bookings
-            bookingsIds = bookingsArr.map(booking => booking._id)
-            bookings.forEach(booking => {
+            bookingsIds = bookingsArr.map((booking) => booking._id)
+            bookings.forEach((booking) => {
                 userOwnerBookingPromises.push(User.findByIdAndUpdate(booking.bookedVan.owner, { $push: { ownerBookings: booking._id } }))
                 let bookingReserver = booking.bookedVan.owner
-                
-                while (bookingReserver.toString() === booking.bookedVan.owner.toString()) bookingReserver = usersIds[Math.floor(Math.random() * usersIds.length)]
-                console.log("los ids son...", bookingReserver, booking.bookedVan.owner)
+
+                while (bookingReserver.toString() === booking.bookedVan.owner.toString())
+                    bookingReserver = usersIds[Math.floor(Math.random() * usersIds.length)]
                 userUserBookingPromises.push(User.findByIdAndUpdate(bookingReserver, { $push: { userBookings: booking._id } }))
                 chatPromises.push(Chat.create({ owners: [booking.bookedVan.owner, bookingReserver], booking: booking._id }))
             })
@@ -80,14 +79,11 @@ router.post("/delete-and-generate", (req, res) => {
         .then((chats) => {
             return Message.create(generateMessages(chats, 5))
         })
-        
 
         .then((response) => {
             res.status(200).json({ message: "Database regenerated" })
         })
-        .catch(err => res.status(500).json(err))
-
-
+        .catch((err) => res.status(500).json(err))
 })
 
-module.exports = router;
+module.exports = router
