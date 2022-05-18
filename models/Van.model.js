@@ -37,10 +37,9 @@ const vanSchema = new Schema(
         },
         location: {
             type: {
-                type: String
+                type: String,
             },
             coordinates: [Number],
-            // required: [true, "Please Provide a location"],
         },
         vanRating: {
             type: Number,
@@ -48,16 +47,18 @@ const vanSchema = new Schema(
             min: 0,
             max: 5,
         },
-        reviews: [{
-            type: Schema.Types.ObjectId,
-            ref: "Review",
-        }],
+        reviews: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Review",
+            },
+        ],
     },
     {
         timestamps: true,
     }
 );
-vanSchema.index({ location: '2dsphere' })
+vanSchema.index({ location: "2dsphere" });
 
 const Van = model("Van", vanSchema);
 

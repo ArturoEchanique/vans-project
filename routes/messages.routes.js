@@ -1,44 +1,35 @@
 const router = require("express").Router()
 const Message = require("../models/Message.model")
-const { isAuthenticated } = require('./../middlewares/jwt.middleware')
-
+const { isAuthenticated } = require("./../middlewares/jwt.middleware")
 
 router.get("/get-all", (req, res) => {
-
-    Message
-        .find()
-        .then(response => res.status(200).json(response))
-        .catch(err => res.status(500).json(err))
+    Message.find()
+        .then((response) => res.status(200).json(response))
+        .catch((err) => res.status(500).json(err))
 })
 
 router.get("/get-user-messages/:user_id", (req, res) => {
-
     const { user_id } = req.params
 
-    Message
-        .find({ owner: user_id })
-        .then(response => res.status(200).json(response))
-        .catch(err => res.status(500).json(err))
+    Message.find({ owner: user_id })
+        .then((response) => res.status(200).json(response))
+        .catch((err) => res.status(500).json(err))
 })
 
 router.post("/create-message", (req, res) => {
+    const newMessage = ({ chat, owner, text, messageDate } = req.body)
 
-    const newMessage = { chat, owner, text, messageDate } = req.body
-
-    Message
-        .create(newMessage)
-        .then(response => res.status(200).json(response))
-        .catch(err => res.status(500).json(err))
+    Message.create(newMessage)
+        .then((response) => res.status(200).json(response))
+        .catch((err) => res.status(500).json(err))
 })
 
 router.get("/get-chat-messages/:chat_id", (req, res) => {
-
     const { chat_id } = req.params
 
-    Message
-        .find({ chat: chat_id })
-        .then(response => res.status(200).json(response))
-        .catch(err => res.status(500).json(err))
+    Message.find({ chat: chat_id })
+        .then((response) => res.status(200).json(response))
+        .catch((err) => res.status(500).json(err))
 })
 
 // router.get("/:message_id/", (req, res) => {
@@ -80,6 +71,5 @@ router.get("/get-chat-messages/:chat_id", (req, res) => {
 //         .then(response => res.status(200).json(response))
 //         .catch(err => res.status(500).json(err))
 // })
-
 
 module.exports = router
