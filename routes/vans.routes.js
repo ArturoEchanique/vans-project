@@ -75,7 +75,29 @@ router.get("/get-vans", (req, res) => {
 
     Van.find({ owner: owner })
         .then((response) => res.status(200).json(response))
+<<<<<<< HEAD
+        .catch((err) => res.status(500).json(err));
+});
+
+router.get('/:van_id', (req, res) => {
+    const { van_id } = req.params
+
+    Van
+        .findById(van_id)
+        .populate("reviews")
+        .populate({
+            path: "reviews",
+            populate: {
+                path: "owner",
+                model: "User",
+            },
+        })
+        .then((response => res.json(response)))
+        .catch(err => res.status(500).json(err))
+
+=======
         .catch((err) => res.status(500).json(err))
+>>>>>>> a211b2d20b21ff582f609d5e784db6601bcd5355
 })
 
 router.get("/:van_id", (req, res) => {
@@ -114,4 +136,14 @@ router.post("/:van_id/delete", (req, res) => {
         .catch((err) => res.status(500).json(err))
 })
 
-module.exports = router
+router.post('/addreview', (req, res) => {
+    const { van_id, review_id } = req.body
+
+    Van
+        .findByIdAndUpdate(van_id, { $push: { reviews: review_id } })
+        .then(((response) => res.status(200).json(response)))
+        .catch(err => res.status(500).json(err))
+
+})
+
+module.exports = router;
