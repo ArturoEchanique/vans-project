@@ -75,7 +75,6 @@ router.get("/get-vans", (req, res) => {
 
     Van.find({ owner: owner })
         .then((response) => res.status(200).json(response))
-<<<<<<< HEAD
         .catch((err) => res.status(500).json(err));
 });
 
@@ -95,9 +94,6 @@ router.get('/:van_id', (req, res) => {
         .then((response => res.json(response)))
         .catch(err => res.status(500).json(err))
 
-=======
-        .catch((err) => res.status(500).json(err))
->>>>>>> a211b2d20b21ff582f609d5e784db6601bcd5355
 })
 
 router.get("/:van_id", (req, res) => {
