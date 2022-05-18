@@ -32,6 +32,18 @@ const vanSchema = new Schema(
         bathroom: {
             type: Boolean,
         },
+        kitchen: {
+            type: Boolean,
+        },
+        heatedSeats: {
+            type: Boolean,
+        },
+        sunRoof: {
+            type: Boolean,
+        },
+        maxPassengers: {
+            type: Number,
+        },
         maxPassengers: {
             type: Number,
         },
