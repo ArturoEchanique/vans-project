@@ -92,6 +92,13 @@ router.get('/:van_id', (req, res) => {
     Van
         .findById(van_id)
         .populate("reviews")
+        .populate({
+            path: "reviews",
+            populate: {
+                path: "owner",
+                model: "User",
+            },
+        })
         .then((response => res.json(response)))
         .catch(err => res.status(500).json(err))
 
@@ -124,6 +131,16 @@ router.post('/:van_id/delete', (req, res) => {
     Van
         .findByIdAndRemove(van_id)
         .then((() => res.json({ message: "van deleted" })))
+        .catch(err => res.status(500).json(err))
+
+})
+
+router.post('/addreview', (req, res) => {
+    const { van_id, review_id } = req.body
+
+    Van
+        .findByIdAndUpdate(van_id, { $push: { reviews: review_id } })
+        .then(((response) => res.status(200).json(response)))
         .catch(err => res.status(500).json(err))
 
 })
