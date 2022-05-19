@@ -1,4 +1,4 @@
-const vanImage = [
+const vanImages = [
     "https://res.cloudinary.com/dzzkeb6xp/image/upload/v1652949665/vans_project/40_jzczis.jpg",
     "https://res.cloudinary.com/dzzkeb6xp/image/upload/v1652949665/vans_project/41_oao5ib.jpg",
     "https://res.cloudinary.com/dzzkeb6xp/image/upload/v1652949665/vans_project/39_dc4y2v.jpg",
@@ -128,3 +128,5 @@ const vanImage = [
 
 
 ]
+
+module.exports = vanImages

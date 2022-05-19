@@ -1,3 +1,5 @@
+vanImages = require(".././data/images")
+
 function randomDate(start, end) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
 }
@@ -64,12 +66,14 @@ const generateVans = (usersIds, reviewsIds, count) => {
         const ranPrice = Math.floor(Math.random() * 400)
         const ranRating = Math.round(Math.random() * 5 * 100) / 100
         const ranLocation = [Math.random() * 8 + 36, Math.random() * 8 - 8]
+        const ranUrl = vanImages[Math.floor(Math.random() * vanImages.length)]
+        console.log("ran url is", ranUrl)
         const newVan = {
             owner: owner,
             name: `van${i}`,
             description: `This is the van description${i}`,
             dayPrice: ranPrice,
-            imageUrl: "https://www.cosasdigitales.com/wp-content/uploads/2016/11/cosas-digitales-articlos-diseno-web.jpg",
+            imageUrl: ranUrl,
             solarPower: ranBool,
             location: {
                 type: "Point",
