@@ -69,8 +69,7 @@ const generateVans = (usersIds, reviewsIds, count) => {
             name: `van${i}`,
             description: `This is the van description${i}`,
             dayPrice: ranPrice,
-            // imageUrl: "https://www.cosasdigitales.com/wp-content/uploads/2016/11/cosas-digitales-articlos-diseno-web.jpg",
-            imageUrl: "./",
+            imageUrl: "https://www.cosasdigitales.com/wp-content/uploads/2016/11/cosas-digitales-articlos-diseno-web.jpg",
             solarPower: ranBool,
             location: {
                 type: "Point",
