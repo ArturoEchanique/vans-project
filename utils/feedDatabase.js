@@ -1,6 +1,7 @@
 vanImages = require(".././data/images")
 vanNames = require(".././data/vanNames")
 vanDescriptions = require(".././data/vanDescriptions")
+vanReviews = require(".././data/vanReviews")
 
 function randomDate(start, end) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
@@ -21,16 +22,15 @@ function randomDateRange() {
 }
 
 const generateReviews = (usersIds, count) => {
-    const text =
-        "The location is outstanding. We walked into the village to get coffee through two wooded paths, and the Raven Pub was just up the street offering a warm and welcoming environment and great pub fare. The view over the water was fantastic. The whole unit was very clean and tidy when we arrived and everything was available and handy. "
 
     let newReviews = []
     for (let i = 0; i < count; i++) {
+        const ranReview = vanReviews[Math.floor(Math.random() * vanReviews.length)]
         const owner = usersIds[Math.floor(Math.random() * usersIds.length)]
         const newReview = {
             owner: owner,
             reviewDate: randomDate(new Date(2022, 5, 1), new Date()),
-            text: text,
+            text: ranReview,
         }
         newReviews.push(newReview)
     }
@@ -103,7 +103,7 @@ const generateUsers = (currentUsersCount, newUsersCount) => {
     for (let i = 0; i < newUsersCount; i++) {
         const newUser = {
             username: `user${currentUsersCount + i}`,
-            email: `user${currentUsersCount + i}@gmail.com`,
+            email: `user${currentUsersCount + i * 1000 + 100}@gmail.com`,
             password: `user${currentUsersCount + i}`,
             imageUrl: "https://i.stack.imgur.com/34AD2.jpg",
         }
