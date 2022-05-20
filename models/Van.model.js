@@ -44,9 +44,7 @@ const vanSchema = new Schema(
         maxPassengers: {
             type: Number,
         },
-        maxPassengers: {
-            type: Number,
-        },
+       
         location: {
             type: {
                 type: String,
