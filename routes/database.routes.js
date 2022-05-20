@@ -44,7 +44,7 @@ router.post("/delete-and-generate", (req, res) => {
         .then((reviews) => {
             reviewsArr = reviews
             reviewsIds = reviewsArr.map((review) => review._id)
-            return Van.create(generateVans(usersIds, reviewsIds, 50))
+            return Van.create(generateVans(usersIds, reviewsIds, 100000))
         })
         .then((vans) => {
             vansIds = vans.map((van) => van._id)
