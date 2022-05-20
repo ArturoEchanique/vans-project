@@ -1,4 +1,6 @@
 vanImages = require(".././data/images")
+vanNames = require(".././data/vanNames")
+vanDescriptions = require(".././data/vanDescriptions")
 
 function randomDate(start, end) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
@@ -67,11 +69,13 @@ const generateVans = (usersIds, reviewsIds, count) => {
         const ranRating = Math.round(Math.random() * 5 * 100) / 100
         const ranLocation = [Math.random() * 8 + 36, Math.random() * 8 - 8]
         const ranUrl = vanImages[Math.floor(Math.random() * vanImages.length)]
+        const ranName = vanNames[Math.floor(Math.random() * vanNames.length)]
+        const ranDescription = vanDescriptions[Math.floor(Math.random() * vanDescriptions.length)]
         console.log("ran url is", ranUrl)
         const newVan = {
             owner: owner,
-            name: `van${i}`,
-            description: `This is the van description${i}`,
+            name: ranName,
+            description: ranDescription,
             dayPrice: ranPrice,
             imageUrl: ranUrl,
             solarPower: ranBool,
