@@ -83,7 +83,7 @@ router.get('/:van_id', (req, res) => {
 
     Van
         .findById(van_id)
-        .populate("reviews")
+        .populate("reviews owner")
         .populate({
             path: "reviews",
             populate: {
@@ -96,14 +96,14 @@ router.get('/:van_id', (req, res) => {
 
 })
 
-router.get("/:van_id", (req, res) => {
-    const { van_id } = req.params
+// router.get("/:van_id", (req, res) => {
+//     const { van_id } = req.params
 
-    Van.findById(van_id)
-        .populate("reviews")
-        .then((response) => res.json(response))
-        .catch((err) => res.status(500).json(err))
-})
+//     Van.findById(van_id)
+//         .populate("reviews")
+//         .then((response) => res.json(response))
+//         .catch((err) => res.status(500).json(err))
+// })
 
 router.post("/:van_id/edit", isAuthenticated, (req, res) => {
     const { van_id } = req.params
