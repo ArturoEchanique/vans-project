@@ -28,6 +28,7 @@ router.get("/get-chat-messages/:chat_id", (req, res) => {
     const { chat_id } = req.params
 
     Message.find({ chat: chat_id })
+        .populate("owner")
         .then((response) => res.status(200).json(response))
         .catch((err) => res.status(500).json(err))
 })
