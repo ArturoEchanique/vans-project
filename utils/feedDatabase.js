@@ -101,11 +101,13 @@ const generateVans = (usersIds, reviewsIds, count) => {
 const generateUsers = (currentUsersCount, newUsersCount) => {
     let newUsers = []
     for (let i = 0; i < newUsersCount; i++) {
+        const imageSrc = `../../images/profileImages/${1 + (i % 18)}.jpeg`
+    
         const newUser = {
             username: `user${currentUsersCount + i}`,
             email: `user${currentUsersCount + i * 1000 + 100}@gmail.com`,
             password: `user${currentUsersCount + i}`,
-            imageUrl: "https://i.stack.imgur.com/34AD2.jpg",
+            imageUrl: imageSrc,
         }
         newUsers.push(newUser)
     }
