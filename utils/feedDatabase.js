@@ -26,9 +26,11 @@ const generateReviews = (usersIds, count) => {
     let newReviews = []
     for (let i = 0; i < count; i++) {
         const ranReview = vanReviews[Math.floor(Math.random() * vanReviews.length)]
+        const ranRating = Math.round((Math.random() * 2 + 3) * 100) / 100
         const owner = usersIds[Math.floor(Math.random() * usersIds.length)]
         const newReview = {
             owner: owner,
+            rating: ranRating,
             reviewDate: randomDate(new Date(2022, 5, 1), new Date()),
             text: ranReview,
         }
