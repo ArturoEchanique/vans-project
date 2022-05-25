@@ -28,7 +28,7 @@ router.post("/create", isAuthenticated, (req, res) => {
 })
 
 router.get("/", (req, res) => {
-    const { name, priceStart, priceEnd, mapXBounds, mapYBounds } = req.query
+    const { name, priceStart, priceEnd, mapXBounds, mapYBounds, passengersStart, passengersEnd } = req.query
     let { skip } = req.query
     if (!skip) skip = 0
     let filterParams = { ...req.query }
@@ -46,6 +46,7 @@ router.get("/", (req, res) => {
 
     Van.find({
         dayPrice: { $gte: priceStart, $lt: priceEnd },
+        maxPassengers: { $gte: passengersStart, $lt: passengersEnd },
         "location.coordinates.0": { $gte: mapYBoundsArr[0], $lt: mapYBoundsArr[1] },
         "location.coordinates.1": { $gte: mapXBoundsArr[0], $lt: mapXBoundsArr[1] },
         name: { $regex: `${name}`, $options: "i" },
