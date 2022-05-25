@@ -64,7 +64,7 @@ const generateVans = (usersIds, reviewsIds, count) => {
         const owner = usersIds[Math.floor(Math.random() * usersIds.length)]
         const reviewsIdsArr = reviewsIds.slice(Math.floor(Math.random() * reviewsIds.length), reviewsIds.length - 1)
         const ranBool = () => (random_boolean = Math.random() < 0.5)
-        const ranPassengers = Math.floor(Math.random() * 10)
+        const ranPassengers = Math.floor(Math.random() * 9) + 4
         const ranPrice = Math.floor(Math.random() * 400)
         const ranRating = Math.round(Math.random() * 5 * 100) / 100
         const ranLocation = [Math.random() * 8 + 36, Math.random() * 8 - 8]
