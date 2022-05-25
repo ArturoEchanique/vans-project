@@ -1,4 +1,4 @@
-const profileImg = [
+const profileImages = [
     "https://res.cloudinary.com/dzzkeb6xp/image/upload/v1653496183/profileImg/9_lqwkfw.jpg",
     "https://res.cloudinary.com/dzzkeb6xp/image/upload/v1653496183/profileImg/4_tf7lpt.jpg",
     "https://res.cloudinary.com/dzzkeb6xp/image/upload/v1653496182/profileImg/6_u1uybp.jpg",
@@ -24,3 +24,5 @@ const profileImg = [
     "https://res.cloudinary.com/dzzkeb6xp/image/upload/v1653496181/profileImg/11_u4b32j.jpg",
     "https://res.cloudinary.com/dzzkeb6xp/image/upload/v1653496181/profileImg/14_eizy24.jpg",
 ]
+
+module.exports = profileImages

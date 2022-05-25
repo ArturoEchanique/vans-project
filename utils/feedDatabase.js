@@ -1,10 +1,12 @@
 vanImages = require(".././data/images")
+profileImages = require(".././data/profileImg")
+usernames = require(".././data/usernames")
 vanNames = require(".././data/vanNames")
 vanDescriptions = require(".././data/vanDescriptions")
 vanReviews = require(".././data/vanReviews")
 
 function randomDate(start, end) {
-    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+    return new Date(start.getTime() + Math.random() * ((end.getTime() - start.getTime())))
 }
 
 function randomDateRange() {
@@ -31,7 +33,7 @@ const generateReviews = (usersIds, count) => {
         const newReview = {
             owner: owner,
             rating: ranRating,
-            reviewDate: randomDate(new Date(2022, 5, 1), new Date()),
+            reviewDate: randomDate(new Date(2022, 3, 1), new Date(2022, 5, 15)),
             text: ranReview,
         }
         newReviews.push(newReview)
@@ -65,7 +67,7 @@ const generateVans = (usersIds, reviewsIds, count) => {
     for (let i = 0; i < count; i++) {
         const owner = usersIds[Math.floor(Math.random() * usersIds.length)]
         const reviewsIdsArr = reviewsIds.slice(Math.floor(Math.random() * reviewsIds.length), reviewsIds.length - 1)
-        const ranBool = () => (random_boolean = Math.random() < 0.5)
+        const ranBool = () => (random_boolean = Math.random() < 0.75)
         const ranPassengers = Math.floor(Math.random() * 9) + 4
         const ranPrice = Math.floor(Math.random() * 400)
         const ranRating = Math.round(Math.random() * 5 * 100) / 100
@@ -80,7 +82,6 @@ const generateVans = (usersIds, reviewsIds, count) => {
             description: ranDescription,
             dayPrice: ranPrice,
             imageUrl: ranUrl,
-            solarPower: ranBool,
             location: {
                 type: "Point",
                 coordinates: [ranLocation[0], ranLocation[1]],
@@ -103,13 +104,14 @@ const generateVans = (usersIds, reviewsIds, count) => {
 const generateUsers = (currentUsersCount, newUsersCount) => {
     let newUsers = []
     for (let i = 0; i < newUsersCount; i++) {
-        const imageSrc = `../../images/profileImages/${1 + (i % 18)}.jpeg`
-    
+        // const imageSrc = `../../images/profileImages/${1 + (i % 18)}.jpeg`
+        const ranUrl = profileImages[Math.floor(Math.random() * profileImages.length)]
+        const ranName = usernames[Math.floor(Math.random() * usernames.length)]
         const newUser = {
-            username: `user${currentUsersCount + i}`,
+            username: ranName,
             email: `user${currentUsersCount + i * 1000 + 100}@gmail.com`,
             password: `user${currentUsersCount + i}`,
-            imageUrl: imageSrc,
+            imageUrl: ranUrl,
         }
         newUsers.push(newUser)
     }
