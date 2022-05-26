@@ -4,6 +4,7 @@ usernames = require(".././data/usernames")
 vanNames = require(".././data/vanNames")
 vanDescriptions = require(".././data/vanDescriptions")
 vanReviews = require(".././data/vanReviews")
+messages = require(".././data/messages")
 
 function randomDate(start, end) {
     return new Date(start.getTime() + Math.random() * ((end.getTime() - start.getTime())))
@@ -48,12 +49,13 @@ const generateMessages = (chats, count) => {
             const randomInt = Math.floor(Math.random() * 2)
             const owner = chat.owners[randomInt]
             const receiver = chat.owners[(randomInt + 1) % 2]
-            const text = `This is a message from ${owner.username} to ${receiver.username},message number ${j} in this chat`
+            const ranMessage = messages[Math.floor(Math.random() * messages.length)]
+            // const text = `This is a message from ${owner.username} to ${receiver.username},message number ${j} in this chat`
             const newMessage = {
                 owner: owner,
                 chat: chat,
                 messageDate: randomDate(new Date(2022, 5, 1), new Date()),
-                text: text,
+                text: ranMessage,
             }
             newMessages.push(newMessage)
         }
