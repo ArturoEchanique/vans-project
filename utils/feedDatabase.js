@@ -74,6 +74,12 @@ const generateVans = (usersIds, reviewsIds, count) => {
         const ranPrice = Math.floor(Math.random() * 400)
         const ranRating = Math.round(Math.random() * 5 * 100) / 100
         const ranLocation = [Math.random() * 8 + 36, Math.random() * 8 - 8]
+        const ranLocationMadrid = [Math.random() * 1 + 40, Math.random() * 1 - 4.2]
+        const ranLocationCordoba = [Math.random() * 1 + 37.3, Math.random() * 1 - 5.2]
+        //cordoba 37.88832793159132, -4.779156595687106
+        //madrid 40.4173389275267, -3.705383866162436
+        randomFloat = Math.random()
+        const finalLocation = randomFloat > 0.66 ? ranLocation : randomFloat < 0.33 ? ranLocationCordoba : ranLocationMadrid
         const ranUrl = vanImages[Math.floor(Math.random() * vanImages.length)]
         const ranName = vanNames[Math.floor(Math.random() * vanNames.length)]
         const ranDescription = vanDescriptions[Math.floor(Math.random() * vanDescriptions.length)]
@@ -86,7 +92,7 @@ const generateVans = (usersIds, reviewsIds, count) => {
             imageUrl: ranUrl,
             location: {
                 type: "Point",
-                coordinates: [ranLocation[0], ranLocation[1]],
+                coordinates: [finalLocation[0], finalLocation[1]],
             },
             solarPower: ranBool(),
             shower: ranBool(),

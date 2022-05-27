@@ -31,7 +31,7 @@ router.post("/delete-and-generate", (req, res) => {
         .then(() => Review.remove())
         .then(() => Message.remove())
         .then(() => {
-            return User.create(generateUsers(currentUsersCount, 2))
+            return User.create(generateUsers(currentUsersCount, 100))
         })
         .then(() => {
             return User.find()
@@ -39,16 +39,16 @@ router.post("/delete-and-generate", (req, res) => {
         .then((users) => {
             usersArr = users
             usersIds = usersArr.map((user) => user._id)
-            return Review.create(generateReviews(usersIds, 50))
+            return Review.create(generateReviews(usersIds, 100))
         })
         .then((reviews) => {
             reviewsArr = reviews
             reviewsIds = reviewsArr.map((review) => review._id)
-            return Van.create(generateVans(usersIds, reviewsIds, 2000))
+            return Van.create(generateVans(usersIds, reviewsIds, 1000))
         })
         .then((vans) => {
             vansIds = vans.map((van) => van._id)
-            return Booking.create(generateBookings(vansIds, 100))
+            return Booking.create(generateBookings(vansIds, 3000))
         })
         .then(() => {
             return Booking.find().populate("bookedVan")
