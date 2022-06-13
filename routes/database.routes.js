@@ -5,10 +5,11 @@ const Booking = require("./../models/Booking.model")
 const User = require("./../models/User.model")
 const Message = require("./../models/Message.model")
 const Chat = require("./../models/Chat.model")
+const { isAuthenticated } = require("./../middlewares/jwt.middleware")
 
 const { generateBookings, generateUsers, generateVans, generateReviews, generateMessages } = require("../utils/feedDatabase")
 
-router.post("/delete-and-generate", (req, res) => {
+router.post("/delete-and-generate", isAuthenticated, (req, res) => {
     let usersArr = []
     let reviewsArr = []
     let reviewsIds = []

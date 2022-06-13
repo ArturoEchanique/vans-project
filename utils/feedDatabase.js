@@ -83,7 +83,6 @@ const generateVans = (usersIds, reviewsIds, count) => {
         const ranUrl = vanImages[Math.floor(Math.random() * vanImages.length)]
         const ranName = vanNames[Math.floor(Math.random() * vanNames.length)]
         const ranDescription = vanDescriptions[Math.floor(Math.random() * vanDescriptions.length)]
-        console.log("ran url is", ranUrl)
         const newVan = {
             owner: owner,
             name: ranName,
@@ -112,7 +111,6 @@ const generateVans = (usersIds, reviewsIds, count) => {
 const generateUsers = (currentUsersCount, newUsersCount) => {
     let newUsers = []
     for (let i = 0; i < newUsersCount; i++) {
-        // const imageSrc = `../../images/profileImages/${1 + (i % 18)}.jpeg`
         const ranUrl = profileImages[Math.floor(Math.random() * profileImages.length)]
         const ranName = usernames[Math.floor(Math.random() * usernames.length)]
         const newUser = {
