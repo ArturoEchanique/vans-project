@@ -59,6 +59,7 @@ router.get("/", (req, res) => {
         .skip(skip)
         .limit(20)
         .then((vans) => {
+            console.log("vans are.-----------------", vans.length)
             noBookedVans = vans
             filteredVansIds = vans.map((van) => van._id)
             return Booking.find({ van: { $in: filteredVansIds } })
